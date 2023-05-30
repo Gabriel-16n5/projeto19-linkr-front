@@ -7,6 +7,6 @@ export default function SignupPage () {
     }, []);
   
     return (
-        <></>
+        <><p>oiii</p></>
     );
   }
