@@ -1,5 +1,7 @@
 import styled from "styled-components"
 import HomePage from "./Pages/HomePage/HomePage.js"
+import SignupPage from "./Pages/SignupPage/SignupPage.js"
+import SigninPage from "./Pages/SigninPage/SigninPage.js"
 import { Route, Routes, BrowserRouter } from "react-router-dom"
 import React from "react"
 
