@@ -10,7 +10,7 @@ return(
 const Main=styled.div`
 height:276px;
 width:611px;
-background-color:#171717;
+background-color:yellow;
 border-radius:16px;
 margin-bottom:29px;
 `
