@@ -21,7 +21,7 @@ export default function NavBar() {
   console.log(icon)
   return (
     <Main>
-      <h1>Linkr</h1>
+      <h1>linkr</h1>
       <section>
       <input type="text" placeholder="Search for people" />
       <span><AiOutlineSearch /></span>
