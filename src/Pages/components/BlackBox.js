@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { IoIosHeartEmpty, IoIosHeart } from 'react-icons/io';
+import { IoIosHeartEmpty, IoIosHeart,  } from 'react-icons/io';
+import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
 import { useState } from 'react';
 
 export default function BlackBox() {
@@ -22,11 +23,17 @@ return(
                 <p>39 likes</p>
         </ImageLikesContainer>
         <TextContainer>
-            <p>Haalandinho Gaúcho</p>
+            <TextTopContainer>
+                <p>Haalandinho Gaúcho</p>
+                <IconsContainer>
+                    <BsPencilSquare size={20}/>
+                    <BsFillTrashFill size={20}/>
+                </IconsContainer>
+            </TextTopContainer>
             <span>Muito maneiro esse tutorial de Material UI com React, deem uma olhada!</span>
             <UrlContainer>
                 <UrlTextContainer>
-                    <h1>Como aplicar o Material UI em um projeto React</h1>
+                    <h2>Como aplicar o Material UI em um projeto React</h2>
                     <p>Hey! I have moved this tutorial to my personal blog. Same content, new location. Sorry about making you click through to another page.</p>
                     <span>https://medium.com/@pshrmn/a-simple-react-router</span>
                 </UrlTextContainer>
@@ -95,6 +102,13 @@ const TextContainer=styled.div`
     }
 `
 
+const TextTopContainer=styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+`
+
 const UrlContainer=styled.div`
     width: 88%;
     height: 56%;
@@ -118,7 +132,7 @@ const UrlTextContainer=styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    h1 {
+    h2 {
         font-size: 16px;
         font-weight: 400;
         margin-bottom: 0;
@@ -143,3 +157,12 @@ const HeartIcon = styled.div`
   cursor: pointer;
 `;
 
+const IconsContainer = styled.div`
+    color: #FFFFFF;
+    height: 18px;
+    width: 16px;
+    display: flex;
+    flex-direction: row;
+    width: 10%;
+    justify-content: space-between;
+    `
