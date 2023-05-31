@@ -12,7 +12,7 @@ export default function App() {
            <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/signup" element={< SignupPage />} />
-            <Route path="/signupin" element={<SigninPage />} />
+            <Route path="/signin" element={<SigninPage />} />
            </Routes>
            <FooterContainer></FooterContainer>
         </BrowserRouter>
