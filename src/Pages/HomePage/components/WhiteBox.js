@@ -20,7 +20,7 @@ return(
 
 const Main=styled.div`
     height:209px;
-    width:611px;
+    width:100%;
     background-color:#FFFFFF;
     border-radius:16px;
     margin-bottom:29px;
@@ -41,6 +41,7 @@ const TextContainer=styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 5px;
     p {
         font-family: 'Lato', sans-serif;
         font-weight: 300;
