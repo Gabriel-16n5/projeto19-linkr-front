@@ -9,7 +9,7 @@ return(
 
 const Main=styled.div`
 height:276px;
-width:611px;
+width:100%;
 background-color:yellow;
 border-radius:16px;
 margin-bottom:29px;

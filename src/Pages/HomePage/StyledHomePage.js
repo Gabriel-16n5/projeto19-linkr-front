@@ -7,35 +7,10 @@ export const Main = styled.div`
   display:flex;
   justify-content:center;
   `
-export const Header = styled.div`
-  width:100%;
-  height:72px;
-  background-color:#151515;
-  display:flex;
-  font-size:26px;
-  color:#FFFFFF;
-  align-items:center;
-  justify-content:space-between;
-  padding-left:26px;
-  padding-right:10px;
-  position:fixed;
-  h1{
-    color: #FFFFFF;
-    font-size:49px;
-    font-weight:700px;
-    font-family: 'Passion One', cursive;
-   
-  }
-  img{
-    width:53px;
-    height:53px;
-    border-radius:26px;
-    margin-left:12px;
-  }
-  `
+
  export const TimeLine = styled.div`
   margin-top:127px;
-  width:611px;
+  width:42%;
   margin-right:25px;
 h1{
     font-family: 'Oswald', sans-serif;
@@ -47,6 +22,6 @@ h1{
   `
  export const MenuLeft = styled.div`
   margin-top:212px;
-  width:301px;
+  width:21%;
   height:200px;
   `
