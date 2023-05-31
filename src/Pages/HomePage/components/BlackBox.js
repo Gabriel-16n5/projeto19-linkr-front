@@ -27,8 +27,9 @@ return(
 }
 
 const Main=styled.div`
+
     height:276px;
-    width:611px;
+    width:100%;
     background-color:#171717;
     border-radius:16px;
     margin-bottom:29px;
@@ -106,4 +107,3 @@ const UrlTextContainer=styled.div`
         color: #CECECE;
     }
 `
-
