@@ -1,18 +1,34 @@
-import { useEffect } from 'react';
+import React from "react"
 import { MainContainer, LeftContainer, RightContainer, Container, Form, Input, Button, Message } from './StyledSigninPage';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
 
 export default function SigninPage () {
-  
-    useEffect(() => {
+    const [wait, setWait] = React.useState(false);
+    const [email, setEmail] = React.useState([]);
+    const [password, setPassword] = React.useState([]);
+    const [token, setToken] = React.useState([]);
+    const navigate = useNavigate();
 
-    }, []);
-  
-        const handleSubmit = (event) => {
-          event.preventDefault();
-          // Lógica para fazer o login aqui!
-        };
-
+    function login(e){
+        e.preventDefault();
+         setWait(!wait)
+         const body = {
+             email: `${email}`,
+             password: `${password}`,
+         }
+         console.log(body);
+         const promise = axios.post(`${process.env.REACT_APP_API_URL}/signin`, body)
+        promise.then((ok) => {
+            setToken(ok.data.token)
+            localStorage.setItem("token", ok.data.token)
+            navigate("/")
+        });
+        promise.catch((erro) => {
+         alert(erro.message);
+         setWait(false);
+        });
+     }
     return (
         <MainContainer>
             <LeftContainer>
@@ -21,9 +37,21 @@ export default function SigninPage () {
             </LeftContainer>
             <RightContainer>
                 <Container>
-                    <Form onSubmit={handleSubmit}>
-                        <Input type="text" placeholder="e-mail" />
-                        <Input type="password" placeholder="password" />
+                    <Form onSubmit={login}>
+                        <Input 
+                        type="text" 
+                        placeholder="e-mail" 
+                        disabled={wait}
+                        value={email}
+                        onChange={(e) => {setEmail(e.target.value)}}
+                        />
+                        <Input 
+                        type="password" 
+                        placeholder="password" 
+                        disabled={wait}
+                        value={password}
+                        onChange={(e) => {setPassword(e.target.value)}}
+                        />
                         <Button type="submit">Log in</Button>
                     </Form>
                     <Message>
