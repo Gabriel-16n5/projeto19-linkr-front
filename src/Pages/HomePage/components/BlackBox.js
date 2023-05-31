@@ -1,12 +1,26 @@
-
 import styled from 'styled-components';
+import { IoIosHeartEmpty, IoIosHeart } from 'react-icons/io';
+import { useState } from 'react';
 
 export default function BlackBox() {
+    const [filled, setFilled] = useState(false);
+
+    const handleClick = () => {
+        setFilled(!filled);
+     };
+     
 //  usar url-metadata no back-end
 
 return(
     <Main>
-        <img src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg" alt=""/>
+        <ImageLikesContainer>
+            <img src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg" alt=""/>
+            <HeartIcon filled={filled} onClick={handleClick}>
+                {filled ? <IoIosHeart size={24} /> : <IoIosHeartEmpty size={24} />}
+            </HeartIcon>
+                {/* ao passar o mouse por cima <p>Ederson, Kevin e outras 39 pessoas</p> */}
+                <p>39 likes</p>
+        </ImageLikesContainer>
         <TextContainer>
             <p>Haalandinho Gaúcho</p>
             <span>Muito maneiro esse tutorial de Material UI com React, deem uma olhada!</span>
@@ -27,7 +41,6 @@ return(
 }
 
 const Main=styled.div`
-
     height:276px;
     width:100%;
     background-color:#171717;
@@ -41,6 +54,23 @@ const Main=styled.div`
         width:53px;
         height:53px;
         border-radius:26px;
+        margin-bottom: 19px;
+    }
+`
+
+const ImageLikesContainer=styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    width: 14%;
+    justify-content: start;
+    align-items: center;
+    P {
+        font-family: 'Lato';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 11px;
+        color: #FFFFFF;
     }
 `
 
@@ -50,6 +80,7 @@ const TextContainer=styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 5px;
     p {
         font-family: 'Lato', sans-serif;
         font-weight: 300;
@@ -83,7 +114,6 @@ const UrlContainer=styled.div`
 const UrlTextContainer=styled.div`
     width: 61%;
     height: 100%;
-
     font-family: 'Lato', sans-serif;
     display: flex;
     flex-direction: column;
@@ -107,3 +137,8 @@ const UrlTextContainer=styled.div`
         color: #CECECE;
     }
 `
+
+const HeartIcon = styled.div`
+  color: ${({ filled }) => (filled ? 'red' : 'white')};
+  cursor: pointer;
+`;
