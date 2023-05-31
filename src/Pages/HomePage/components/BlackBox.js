@@ -142,3 +142,4 @@ const HeartIcon = styled.div`
   color: ${({ filled }) => (filled ? 'red' : 'white')};
   cursor: pointer;
 `;
+
