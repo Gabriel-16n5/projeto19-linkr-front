@@ -7,7 +7,8 @@ import { Tooltip } from "react-tooltip";
 
 export default function BlackBox() {
   const [filled, setFilled] = useState(false);
-  const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
+  // const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
+  const { setDeleted } = useContext(TimelineContext);
 
   function handleClick() {
     setFilled(!filled);
@@ -24,7 +25,7 @@ export default function BlackBox() {
       <ImageLikesContainer>
         <img
           src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
-          alt=""
+          alt="imagem"
         />
         <HeartIcon
           filled={filled}
@@ -76,6 +77,9 @@ const Main = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 600px) {
+    border-radius: 0;
+  }
   img {
     width: 53px;
     height: 53px;
@@ -129,7 +133,7 @@ const TextTopContainer = styled.div`
 `;
 
 const UrlContainer = styled.div`
-  width: 88%;
+  width: 100%;
   height: 56%;
   border: 1px solid #4d4d4d;
   border-radius: 11px;
@@ -183,6 +187,7 @@ const IconsContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 10%;
+  gap: 10px;
   justify-content: space-between;
 `;
 
