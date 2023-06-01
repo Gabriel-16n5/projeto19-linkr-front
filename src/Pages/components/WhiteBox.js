@@ -45,7 +45,7 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 5px;
+  padding: 5px 5px 0;
   p {
     font-family: "Lato", sans-serif;
     font-weight: 300;
