@@ -12,6 +12,7 @@
     "react-icons": "^4.9.0",
     "react-router-dom": "^6.8.2",
     "react-scripts": "5.0.1",
+    "react-tooltip": "^5.13.1",
     "styled-components": "^5.3.8",
     "url-metadata": "^3.0.1"
   },
