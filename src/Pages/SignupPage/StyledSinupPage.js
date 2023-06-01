@@ -22,7 +22,7 @@ export const LeftContainer = styled.div`
     margin-left: 65px;
   }
   h3 {
-    font-family: "Oswald";
+    font-family: "Oswald", sans-serif;
     font-size: 43px;
     color: #ffffff;
     font-weight: 700;
