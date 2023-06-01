@@ -22,7 +22,7 @@ export default function SignupPage () {
         }
         console.log(body);
         const promise = axios.post(`${process.env.REACT_APP_API_URL}/signup`, body)
-       promise.then((ok) => navigate("/signin"));
+       promise.then((ok) => navigate("/"));
        promise.catch((erro) => {
         alert(erro.message);
         setWait(false);

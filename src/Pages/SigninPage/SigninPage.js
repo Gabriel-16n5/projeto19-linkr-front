@@ -22,7 +22,7 @@ export default function SigninPage () {
         promise.then((ok) => {
             setToken(ok.data.token)
             localStorage.setItem("token", ok.data.token)
-            navigate("/")
+            navigate("/timeline")
         });
         promise.catch((erro) => {
          alert(erro.message);
@@ -55,7 +55,7 @@ export default function SigninPage () {
                         <Button type="submit">Log in</Button>
                     </Form>
                     <Message>
-                        <Link to="/">First time? Create an account!</Link>
+                        <Link to="/signup">First time? Create an account!</Link>
                     </Message>
                 </Container>
             </RightContainer>

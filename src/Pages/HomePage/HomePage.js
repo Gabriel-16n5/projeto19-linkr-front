@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import NavBar from '../components/NavBar';
 import { Main, TimeLine, MenuLeft, BackgroundOpacity, DeletedContainer, NoButton, YesButton, ButtonsContainer } from './StyledHomePage';
 import WhiteBox from '../components/WhiteBox';
@@ -9,6 +9,10 @@ import { TimelineContext } from '../../contexts/TimelineContext';
 
 export default function HomePage() {
     const { deleted, setDeleted } = useContext(TimelineContext)
+    import { useNavigate } from 'react-router';
+    import axios from 'axios';
+    const navigate = useNavigate();
+    const [data,setData] = useState()
 
     function noDelete(){
         setDeleted(false)
@@ -20,7 +24,18 @@ export default function HomePage() {
     }
 
     useEffect(() => {
-
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate("/")
+        } else {
+        const promise = axios.get(`${process.env.REACT_APP_API_URL}/timeline`)
+        promise.then((res) => {
+            setData(res.data);
+        });
+        promise.catch((erro) => {
+         alert(erro.message);
+        });
+        }
     }, []);
 
 
