@@ -44,7 +44,7 @@ export default function HomePage() {
         alert(erro.message);
       });
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <>
