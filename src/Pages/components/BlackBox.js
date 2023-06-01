@@ -92,7 +92,7 @@ const ImageLikesContainer = styled.div`
   justify-content: start;
   align-items: center;
   P {
-    font-family: "Lato";
+    font-family: "Lato", sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 11px;
