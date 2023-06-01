@@ -5,12 +5,11 @@ import WhiteBox from '../components/WhiteBox';
 import BlackBox from '../components/BlackBox';
 import Trending from '../components/Trending';
 import { TimelineContext } from '../../contexts/TimelineContext';
-
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 export default function HomePage() {
     const { deleted, setDeleted } = useContext(TimelineContext)
-    import { useNavigate } from 'react-router';
-    import axios from 'axios';
     const navigate = useNavigate();
     const [data,setData] = useState()
 
