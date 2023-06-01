@@ -130,7 +130,7 @@ const TextTopContainer = styled.div`
 `;
 
 const UrlContainer = styled.div`
-  width: 88%;
+  width: 100%;
   height: 56%;
   border: 1px solid #4d4d4d;
   border-radius: 11px;
@@ -184,6 +184,7 @@ const IconsContainer = styled.div`
   display: flex;
   flex-direction: row;
   width: 10%;
+  gap: 10px;
   justify-content: space-between;
 `;
 
