@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
-import { AiOutlineSearch } from "react-icons/ai";
 import { useState } from "react";
+import Search from "./Search";
 export default function NavBar() {
   const [icon, setIcon] = useState(<BsChevronDown onClick={openlogout} />);
   const [logout, setLogout] = useState("none");
@@ -22,12 +22,7 @@ export default function NavBar() {
   return (
     <Main>
       <h1>linkr</h1>
-      <section>
-        <input type="text" placeholder="Search for people" />
-        <span>
-          <AiOutlineSearch />
-        </span>
-      </section>
+      <Search />
       <Seta>
         {icon}
         <img
@@ -43,10 +38,10 @@ export default function NavBar() {
 }
 
 const Seta = styled.div`
-display: flex;
-align-items: center;
-justify-content: center;
-`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const Logout = styled.div`
   width: 150px;
@@ -87,17 +82,13 @@ const Main = styled.div`
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-size: 19px;
-    //Reset do input
     box-shadow: 0 0 0 0;
     border: 0 none;
     outline: 0;
-    //.
     :focus {
-      //Reset do input
       box-shadow: 0 0 0 0;
       border: 0 none;
       outline: 0;
-      //.
     }
     ::placeholder {
       color: #c6c6c6;
@@ -105,10 +96,6 @@ const Main = styled.div`
       font-weight: 400;
       font-size: 19px;
     }
-  }
-  section {
-    width: 39%;
-    position: relative;
   }
   span {
     font-size: 21px;

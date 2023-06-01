@@ -3,7 +3,7 @@ import styled from "styled-components";
 export default function WhiteBox() {
   return (
     <Main>
-      <img
+      <Imagem
         src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
         alt=""
       />
@@ -21,6 +21,11 @@ export default function WhiteBox() {
     </Main>
   );
 }
+const Imagem = styled.img`
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
 
 const Main = styled.div`
   height: 209px;
@@ -32,6 +37,9 @@ const Main = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 600px) {
+    border-radius: 0;
+  }
   img {
     width: 53px;
     height: 53px;
@@ -46,6 +54,9 @@ const TextContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 5px 5px 0;
+  @media (max-width: 600px) {
+    width: 100%;
+  }
   p {
     font-family: "Lato", sans-serif;
     font-weight: 300;

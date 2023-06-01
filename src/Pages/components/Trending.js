@@ -31,6 +31,9 @@ const Main = styled.div`
   border-radius: 16px;
   padding-top: 12px;
   color: #ffffff;
+  @media (max-width: 600px) {
+    display: none;
+  }
   h1 {
     font-family: "Oswald", sans-serif;
     font-weight: 700;

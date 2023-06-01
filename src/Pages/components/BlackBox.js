@@ -77,6 +77,9 @@ const Main = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 600px) {
+    border-radius: 0;
+  }
   img {
     width: 53px;
     height: 53px;

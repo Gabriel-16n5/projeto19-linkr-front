@@ -11,19 +11,29 @@ export const Main = styled.div`
 export const TimeLine = styled.div`
   margin-top: 127px;
   width: 42%;
-  margin-right: 25px;
+  padding: 0 25px;
+  @media (max-width: 600px) {
+    width: 100%;
+    padding: 0;
+  }
   h1 {
     font-family: "Oswald", sans-serif;
     font-size: 43px;
     color: #ffffff;
     font-weight: 700;
     margin-bottom: 43px;
+    @media (max-width: 600px) {
+      padding-left: 25px;
+    }
   }
 `;
 export const MenuLeft = styled.div`
   margin-top: 212px;
   width: 21%;
   height: 200px;
+  @media (max-width: 600px) {
+    display: none;
+  }
 `;
 
 export const BackgroundOpacity = styled.div`
