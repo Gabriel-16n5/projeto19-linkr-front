@@ -28,19 +28,26 @@ export default function NavBar() {
           <AiOutlineSearch />
         </span>
       </section>
-      <div>
+      <Seta>
         {icon}
         <img
           src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
           alt=""
         />
-      </div>
+      </Seta>
       <Logout logout={logout}>
         <p>Logout</p>
       </Logout>
     </Main>
   );
 }
+
+const Seta = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+`
+
 const Logout = styled.div`
   width: 150px;
   height: 47px;
