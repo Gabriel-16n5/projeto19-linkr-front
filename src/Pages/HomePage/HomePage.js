@@ -5,10 +5,14 @@ import WhiteBox from '../components/WhiteBox';
 import BlackBox from '../components/BlackBox';
 import Trending from '../components/Trending';
 import { TimelineContext } from '../../contexts/TimelineContext';
+import { useNavigate } from 'react-router';
+import axios from 'axios';
 
 
 export default function HomePage() {
     const { deleted, setDeleted } = useContext(TimelineContext)
+    const navigate = useNavigate();
+    const [data,setData] = useState()
 
     function noDelete(){
         setDeleted(false)
@@ -19,8 +23,20 @@ export default function HomePage() {
         // deletar o post
     }
 
-    useEffect(() => {
 
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate("/")
+        } else {
+        const promise = axios.get(`${process.env.REACT_APP_API_URL}/timeline`)
+        promise.then((res) => {
+            setData(res.data);
+        });
+        promise.catch((erro) => {
+         alert(erro.message);
+        });
+        }
     }, []);
 
 
