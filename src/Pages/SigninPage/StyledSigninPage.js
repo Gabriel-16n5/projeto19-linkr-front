@@ -3,18 +3,16 @@ import styled from "styled-components";
 export const MainContainer = styled.div`
   background-color: #333333;
   width: 100%;
-  /* height: auto; */
+  height: 100vh;
   display: flex;
-  justify-content: space-between;
   flex-direction: row;
   @media (max-width: 600px) {
-    flex-direction: column;
-  }
-`;
+  flex-direction: column;
+}`;
+
 export const LeftContainer = styled.div`
   background-color: black;
-  width: 63%;
-  height: 100vh;
+  width: 60%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -36,14 +34,14 @@ export const LeftContainer = styled.div`
       margin-left: 0;
     }
   }
-
   h3 {
     font-family: "Oswald", sans-serif;
     font-size: 43px;
     color: #ffffff;
     font-weight: 700;
     margin-left: 65px;
-    padding-bottom: 300px;
+    max-width: 450px;
+    margin-right: 20px;
     @media (max-width: 600px) {
       font-size: 24px;
       margin-left: 0;
@@ -52,7 +50,17 @@ export const LeftContainer = styled.div`
   }
 `;
 
-export const RightContainer = styled.div``;
+export const RightContainer = styled.div`
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  @media (max-width: 600px) {
+    margin-right: 0;
+    width: 100%;
+  }
+`;
 
 export const Container = styled.div`
   margin-right: 23px;
@@ -60,7 +68,6 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   @media (max-width: 600px) {
     margin-right: 0;
   }
@@ -117,7 +124,6 @@ export const Message = styled.p`
   font-size: 17px;
   margin-top: 16px;
   color: #fff;
-  padding-bottom: 250px;
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 20px;
