@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { TimelineContext } from "../../contexts/TimelineContext";
 import { Tooltip } from "react-tooltip";
 
-export default function BlackBox() {
+export default function BlackBox(props) {
   const [filled, setFilled] = useState(false);
   // const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
   const { setDeleted } = useContext(TimelineContext);
@@ -17,15 +17,18 @@ export default function BlackBox() {
   function deletePost() {
     setDeleted(true);
   }
-
+  function clickLink(){
+    const url = props.url
+    window.open(url, "_blank");
+  }
   //  usar url-metadata no back-end
 
   return (
-    <Main>
+    <Main >
       <ImageLikesContainer>
         <img
           src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
-          alt="imagem"
+          alt="imagem perfil"
         />
         <HeartIcon
           filled={filled}
@@ -41,26 +44,24 @@ export default function BlackBox() {
       </ImageLikesContainer>
       <TextContainer>
         <TextTopContainer>
-          <p>Haalandinho Gaúcho</p>
+          <p>{props.name}</p>
           <IconsContainer>
             <BsPencilSquare size={20} />
             <BsFillTrashFill size={20} onClick={deletePost} />
           </IconsContainer>
         </TextTopContainer>
         <span>
-          Muito maneiro esse tutorial de Material UI com React, deem uma olhada!
+          {props.text}
         </span>
-        <UrlContainer>
+        <UrlContainer onClick={clickLink}>
           <UrlTextContainer>
-            <h2>Como aplicar o Material UI em um projeto React</h2>
+            <h2>{props.title}</h2>
             <p>
-              Hey! I have moved this tutorial to my personal blog. Same content,
-              new location. Sorry about making you click through to another
-              page.
+              {props.description}
             </p>
-            <span>https://medium.com/@pshrmn/a-simple-react-router</span>
+            <span>{props.url}</span>
           </UrlTextContainer>
-          <img src="https://img.freepik.com/free-icon/atomic-energy_318-914621.jpg?size=626&ext=jpg&uid=R104496286&ga=GA1.2.1934028619.1685108812&semt=sph" />
+          <img src={props.image} alt="imagem site"/>
         </UrlContainer>
       </TextContainer>
     </Main>
@@ -141,6 +142,7 @@ const UrlContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding: 15px;
+  cursor: pointer;
   img {
     height: 100%;
     width: 30%;
