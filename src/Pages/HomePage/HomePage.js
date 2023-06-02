@@ -50,13 +50,14 @@ export default function HomePage() {
       });
       promise.then((res) => {
         setData(res.data);
+        
       });
       promise.catch((erro) => {
         alert(erro.message);
       });
     }
   }, [navigate]);
- console.log(data)
+ 
 
   return (
     <>
@@ -82,7 +83,7 @@ export default function HomePage() {
           <h1>Timeline</h1>
           <WhiteBox token={localStorage.getItem("token")} />
           
-          {data===0 ? <>Loading posts...</> : data.map(a=> <BlackBox name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description}/>)}
+          {data===0 ? <>Loading posts...</> : data.map(a=> <BlackBox token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
         </TimeLine>
         <MenuLeft>
           <Trending />
