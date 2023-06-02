@@ -68,7 +68,7 @@ export default function SigninPage() {
             <Button type="submit">Log in</Button>
           </Form>
           <Message>
-            <Link to="/signup">First time? Create an account!</Link>
+            <Link to="/sign-up">First time? Create an account!</Link>
           </Message>
         </Container>
       </RightContainer>
