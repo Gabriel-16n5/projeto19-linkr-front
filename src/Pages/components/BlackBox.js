@@ -43,7 +43,7 @@ export default function BlackBox() {
           <p>Haalandinho Gaúcho</p>
           <IconsContainer>
             <BsPencilSquare size={20} />
-            <BsFillTrashFill size={20} onClick={deletePost} />
+            <Hover><BsFillTrashFill size={20} onClick={deletePost} /></Hover>
           </IconsContainer>
         </TextTopContainer>
         <span>
@@ -184,7 +184,15 @@ const IconsContainer = styled.div`
   flex-direction: row;
   width: 10%;
   justify-content: space-between;
+
 `;
+
+const Hover = styled.span`
+:hover{
+  color: red;
+  cursor: pointer;
+}
+`
 
 const ReactTooltip = styled(Tooltip)`
   &.type-dark.place-top {

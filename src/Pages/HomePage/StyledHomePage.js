@@ -35,6 +35,7 @@ export const BackgroundOpacity = styled.div`
 `;
 
 export const DeletedContainer = styled.div`
+  display: none;
   width: 597px;
   height: 262px;
   background: #333333;
