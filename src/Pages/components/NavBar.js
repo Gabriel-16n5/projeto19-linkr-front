@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useState } from "react";
 import Search from "./Search";
@@ -6,6 +7,13 @@ export default function NavBar() {
   const [icon, setIcon] = useState(<BsChevronDown onClick={openlogout} />);
   const [logout, setLogout] = useState("none");
   let i = 0;
+  const navigate = useNavigate();
+
+  function logoutUser(){
+    localStorage.clear();
+    navigate("/");
+  }
+
   function openlogout() {
     if (i === 0) {
       setIcon(<BsChevronUp onClick={openlogout} />);
@@ -30,7 +38,7 @@ export default function NavBar() {
         />
       </Seta>
       <Logout logout={logout}>
-        <p>Logout</p>
+        <Hover><p onClick={logoutUser}>Logout</p></Hover>
       </Logout>
     </Main>
   );
@@ -117,3 +125,10 @@ const Main = styled.div`
     margin-left: 12px;
   }
 `;
+
+const Hover = styled.section`
+:hover{
+  color: #dc143c;
+  cursor: pointer;
+}
+`
