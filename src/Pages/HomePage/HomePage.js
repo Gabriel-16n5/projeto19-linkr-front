@@ -20,6 +20,7 @@ import axios from "axios";
 
 export default function HomePage() {
   const { deleted, setDeleted } = useContext(TimelineContext);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState(0);
 
@@ -29,7 +30,12 @@ export default function HomePage() {
 
   function yesDelete() {
     setDeleted(false);
-    // deletar o post
+    setLoading(true);
+    try{
+
+    }catch (erro){
+
+    }
   }
 
   useEffect(() => {

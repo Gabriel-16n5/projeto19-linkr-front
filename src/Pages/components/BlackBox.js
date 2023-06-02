@@ -17,8 +17,6 @@ export default function BlackBox(props) {
     const peopleNumberLikes = props.peopleLike.length
     const peopleLikes = props.peopleLike
 
-    console.log(props.token)
-
     function namePeopleLike(){
         if(peopleNumberLikes === 0) return "No Likes"
         else if (peopleNumberLikes === 1) return `${peopleLikes[0].username} curtiu`
@@ -94,7 +92,7 @@ export default function BlackBox(props) {
                     <p>{props.name}</p>
                     <IconsContainer>
                         <BsPencilSquare size={20} onClick={clickEditing} />
-                        <BsFillTrashFill size={20} onClick={deletePost} />
+                        <Hover><BsFillTrashFill size={20} onClick={deletePost} /></Hover>
                     </IconsContainer>
                 </TextTopContainer>
                 {isEditing ? (
@@ -245,10 +243,17 @@ const IconsContainer = styled.div`
   width: 10%;
   gap: 10px;
   justify-content: space-between;
+
 `;
 
 const ReactToolTip = styled(Tooltip)`
     font-family: "Lato", sans-serif;
     font-weight: 400;
     font-size: 12px;
+`
+const Hover = styled.span`
+:hover{
+  color: red;
+  cursor: pointer;
+}
 `
