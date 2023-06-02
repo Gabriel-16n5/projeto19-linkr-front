@@ -91,7 +91,7 @@ export default function BlackBox(props) {
                 <TextTopContainer>
                     <p>{props.name}</p>
                     <IconsContainer>
-                        <BsPencilSquare size={20} onClick={clickEditing} />
+                    <Hover><BsPencilSquare size={20} onClick={clickEditing} /></Hover>
                         <Hover><BsFillTrashFill size={20} onClick={deletePost} /></Hover>
                     </IconsContainer>
                 </TextTopContainer>
