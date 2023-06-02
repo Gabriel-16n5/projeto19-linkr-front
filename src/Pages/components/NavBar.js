@@ -30,15 +30,15 @@ export default function NavBar() {
     <Main>
       <h1>linkr</h1>
       <Search />
-      <Seta>
+      <Seta >
         {icon}
-        <img
+        <img data-test="avatar"
           src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
           alt=""
         />
       </Seta>
-      <Logout logout={logout}>
-        <Hover><p onClick={logoutUser}>Logout</p></Hover>
+      <Logout data-test="menu" logout={logout}>
+        <Hover><p data-test="logout" onClick={logoutUser}>Logout</p></Hover>
       </Logout>
     </Main>
   );
