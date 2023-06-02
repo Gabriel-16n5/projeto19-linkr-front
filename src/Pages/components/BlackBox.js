@@ -1,13 +1,19 @@
 import styled from 'styled-components';
 import { IoIosHeartEmpty, IoIosHeart, } from 'react-icons/io';
 import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { TimelineContext } from '../../contexts/TimelineContext';
 import {Tooltip} from "react-tooltip";
 
 export default function BlackBox() {
     const [filled, setFilled] = useState(false);
     const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext)
+    const [isEditing, setEditing] = useState(false);
+    const [editedText, setEditedText] = useState('');
+    const [disable, setDisable] = useState(false)
+    const inputRef = useRef(null);
+
+  
 
     function handleClick() {
         setFilled(!filled);
@@ -17,8 +23,10 @@ export default function BlackBox() {
         setDeleted(true)
     }
 
+    function editMaterial(){
 
-    //  usar url-metadata no back-end
+    }
+
 
     return (
         <Main>
@@ -35,11 +43,13 @@ export default function BlackBox() {
                 <TextTopContainer>
                     <p>Haalandinho Gaúcho</p>
                     <IconsContainer>
-                        <BsPencilSquare size={20} />
+                        <BsPencilSquare size={20} onClick={editMaterial}/>
                         <BsFillTrashFill size={20} onClick={deletePost} />
                     </IconsContainer>
                 </TextTopContainer>
-                <span>Muito maneiro esse tutorial de Material UI com React, deem uma olhada!</span>
+                
+              <span>{editedText}</span>
+
                 <UrlContainer>
                     <UrlTextContainer>
                         <h2>Como aplicar o Material UI em um projeto React</h2>
@@ -53,7 +63,6 @@ export default function BlackBox() {
             </TextContainer>
         </Main>
     )
-
 }
 
 const Main = styled.div`
