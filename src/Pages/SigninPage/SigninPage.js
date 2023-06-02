@@ -34,6 +34,13 @@ export default function SigninPage() {
       navigate("/timeline");
     });
     promise.catch((erro) => {
+      if(erro.response.status === 400){
+        setWait(false);
+        return alert("preencha todos os campos corretamente");
+      } else if(erro.response.status === 404){
+        setWait(false);
+        return alert("Email ou senha incorretos");
+      }
       alert(erro.message);
       setWait(false);
     });
