@@ -8,6 +8,7 @@ export const Main = styled.div`
   justify-content: center;
 `;
 
+
 export const TimeLine = styled.div`
   margin-top: 127px;
   width: 42%;

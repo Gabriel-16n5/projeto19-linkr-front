@@ -1,14 +1,15 @@
-import styled from "styled-components";
-import { IoIosHeartEmpty, IoIosHeart } from "react-icons/io";
-import { BsPencilSquare, BsFillTrashFill } from "react-icons/bs";
-import { useContext, useState } from "react";
-import { TimelineContext } from "../../contexts/TimelineContext";
-import { Tooltip } from "react-tooltip";
+import styled from 'styled-components';
+import { IoIosHeartEmpty, IoIosHeart, } from 'react-icons/io';
+import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
+import { useContext, useRef, useState } from 'react';
+import { TimelineContext } from '../../contexts/TimelineContext';
+import {Tooltip} from "react-tooltip";
 
 export default function BlackBox(props) {
   const [filled, setFilled] = useState(false);
   // const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
   const { setDeleted } = useContext(TimelineContext);
+  const inputRef = useRef(null);
 
   function handleClick() {
     setFilled(!filled);
