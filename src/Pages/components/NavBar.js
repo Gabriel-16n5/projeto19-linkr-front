@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useState } from "react";
 import Search from "./Search";
@@ -6,6 +7,13 @@ export default function NavBar() {
   const [icon, setIcon] = useState(<BsChevronDown onClick={openlogout} />);
   const [logout, setLogout] = useState("none");
   let i = 0;
+  const navigate = useNavigate();
+
+  function logoutUser(){
+    localStorage.clear();
+    navigate("/");
+  }
+
   function openlogout() {
     if (i === 0) {
       setIcon(<BsChevronUp onClick={openlogout} />);
@@ -22,15 +30,15 @@ export default function NavBar() {
     <Main>
       <h1>linkr</h1>
       <Search />
-      <Seta>
+      <Seta >
         {icon}
-        <img
+        <img data-test="avatar"
           src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
           alt=""
         />
       </Seta>
-      <Logout logout={logout}>
-        <p>Logout</p>
+      <Logout data-test="menu" logout={logout}>
+        <Hover><p data-test="logout" onClick={logoutUser}>Logout</p></Hover>
       </Logout>
     </Main>
   );
@@ -117,3 +125,10 @@ const Main = styled.div`
     margin-left: 12px;
   }
 `;
+
+const Hover = styled.section`
+:hover{
+  color: #dc143c;
+  cursor: pointer;
+}
+`

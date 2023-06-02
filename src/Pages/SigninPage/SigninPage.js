@@ -34,6 +34,13 @@ export default function SigninPage() {
       navigate("/timeline");
     });
     promise.catch((erro) => {
+      if(erro.response.status === 400){
+        setWait(false);
+        return alert("preencha todos os campos corretamente");
+      } else if(erro.response.status === 404){
+        setWait(false);
+        return alert("Email ou senha incorretos");
+      }
       alert(erro.message);
       setWait(false);
     });
@@ -47,7 +54,7 @@ export default function SigninPage() {
       <RightContainer>
         <Container>
           <Form onSubmit={login}>
-            <Input
+            <Input data-test="email"
               type="text"
               placeholder="e-mail"
               disabled={wait}
@@ -56,7 +63,7 @@ export default function SigninPage() {
                 setEmail(e.target.value);
               }}
             />
-            <Input
+            <Input data-test="password"
               type="password"
               placeholder="password"
               disabled={wait}
@@ -65,10 +72,12 @@ export default function SigninPage() {
                 setPassword(e.target.value);
               }}
             />
-            <Button type="submit">Log in</Button>
+            <Button data-test="login-btn" type="submit">Log in</Button>
           </Form>
           <Message>
-            <Link to="/sign-up">First time? Create an account!</Link>
+
+            <Link data-test="sign-up-link" to="/signup">First time? Create an account!</Link>
+
           </Message>
         </Container>
       </RightContainer>
