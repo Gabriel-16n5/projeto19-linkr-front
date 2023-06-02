@@ -76,7 +76,7 @@ export default function SigninPage() {
           </Form>
           <Message>
 
-            <Link data-test="sign-up-link" to="/signup">First time? Create an account!</Link>
+            <Link data-test="sign-up-link" to="/sign-up">First time? Create an account!</Link>
 
           </Message>
         </Container>
