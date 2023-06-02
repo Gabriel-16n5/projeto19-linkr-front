@@ -72,7 +72,7 @@ export default function BlackBox(props) {
         <Main >
             <ImageLikesContainer>
                 <img
-                    src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
+                    src={props.pictureUrl}
                     alt="imagem perfil"
                 />
                 <HeartIcon
@@ -91,7 +91,7 @@ export default function BlackBox(props) {
                 <TextTopContainer>
                     <p>{props.name}</p>
                     <IconsContainer>
-                        <BsPencilSquare size={20} onClick={clickEditing} />
+                    <Hover><BsPencilSquare size={20} onClick={clickEditing} /></Hover>
                         <Hover><BsFillTrashFill size={20} onClick={deletePost} /></Hover>
                     </IconsContainer>
                 </TextTopContainer>
@@ -240,7 +240,7 @@ const IconsContainer = styled.div`
   width: 16px;
   display: flex;
   flex-direction: row;
-  width: 10%;
+  width:10%;
   gap: 10px;
   justify-content: space-between;
 
