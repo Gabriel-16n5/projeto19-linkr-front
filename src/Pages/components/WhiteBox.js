@@ -4,8 +4,10 @@ import { useState } from "react";
 
 export default function WhiteBox(props) {
   const [data,setData] = useState({url:"",text:""})
-  
+  const [disabled,setDisabled] = useState("")
+  console.log(disabled)
   function publishPost(){
+    setDisabled("true")
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,data,{
       headers: {
         'Authorization': `Bearer ${props.token}`
@@ -13,9 +15,13 @@ export default function WhiteBox(props) {
     });
     promise.then((res) => {
       alert("Postado")
+      setDisabled("")
+      setData({url:"",text:""})
     });
     promise.catch((erro) => {
       alert(erro.message);
+      setDisabled("")
+      setData({url:"",text:""})
     });
   }
   return (
@@ -27,10 +33,10 @@ export default function WhiteBox(props) {
       <TextContainer>
         <p>What are you going to share today?</p>
 
-        <UrlInput value={data.url} onChange={e => setData({...data,url:e.target.value})} placeholder={"http://..."}></UrlInput>
+        <UrlInput disabled={disabled} value={data.url} onChange={e => setData({...data,url:e.target.value})} placeholder={"http://..."}></UrlInput>
 
         <TextInput
-        value={data.text} onChange={e => setData({...data,text:e.target.value})}  placeholder={"Awesome article about #javascript"}
+        value={data.text} disabled={disabled}  onChange={e => setData({...data,text:e.target.value})}  placeholder={"Awesome article about #javascript"}
         ></TextInput>
 
         <PublishButton onClick={publishPost}>Publish</PublishButton>

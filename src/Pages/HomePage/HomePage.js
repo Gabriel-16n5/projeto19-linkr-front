@@ -83,7 +83,7 @@ export default function HomePage() {
           <h1>Timeline</h1>
           <WhiteBox token={localStorage.getItem("token")} />
           
-          {data===0 ? <>Loading posts...</> : data.map(a=> <BlackBox token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
+          {data===0 ? <h4>Loading posts...</h4> : data!==[] ? data.map(a=> <BlackBox pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>) : <h4>There are no posts yet</h4>}
         </TimeLine>
         <MenuLeft>
           <Trending />
