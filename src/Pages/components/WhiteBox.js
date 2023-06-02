@@ -1,6 +1,23 @@
 import styled from "styled-components";
+import axios from "axios";
+import { useState } from "react";
 
-export default function WhiteBox() {
+export default function WhiteBox(props) {
+  const [data,setData] = useState({url:"",text:""})
+  
+  function publishPost(){
+    const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,data,{
+      headers: {
+        'Authorization': `Bearer ${props.token}`
+      },
+    });
+    promise.then((res) => {
+      alert("Postado")
+    });
+    promise.catch((erro) => {
+      alert(erro.message);
+    });
+  }
   return (
     <Main>
       <Imagem
@@ -10,13 +27,13 @@ export default function WhiteBox() {
       <TextContainer>
         <p>What are you going to share today?</p>
 
-        <UrlInput placeholder={"http://..."}></UrlInput>
+        <UrlInput value={data.url} onChange={e => setData({...data,url:e.target.value})} placeholder={"http://..."}></UrlInput>
 
         <TextInput
-          placeholder={"Awesome article about #javascript"}
+        value={data.text} onChange={e => setData({...data,text:e.target.value})}  placeholder={"Awesome article about #javascript"}
         ></TextInput>
 
-        <PublishButton>Publish</PublishButton>
+        <PublishButton onClick={publishPost}>Publish</PublishButton>
       </TextContainer>
     </Main>
   );

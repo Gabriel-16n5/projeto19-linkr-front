@@ -12,13 +12,12 @@ export default function NavBar() {
       setLogout("flex");
       i = 1;
     } else {
-      console.log("entrou no else");
+      
       setIcon(<BsChevronDown onClick={openlogout} />);
       setLogout("none");
       i = 0;
     }
   }
-  console.log(icon);
   return (
     <Main>
       <h1>linkr</h1>
