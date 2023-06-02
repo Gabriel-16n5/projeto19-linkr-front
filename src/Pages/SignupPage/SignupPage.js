@@ -33,9 +33,15 @@ export default function SignupPage() {
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/signup`, body);
     promise.then((ok) => navigate("/"));
     promise.catch((erro) => {
+      if(erro.response.status === 400){
+        setWait(false);
+        return alert("preencha todos os campos corretamente");
+      } else if(erro.response.status === 409){
+        setWait(false);
+        return alert("Email ou usuário já cadastrado");
+      }
       alert(erro.message);
       setWait(false);
-      console.log(erro.message);
     });
   }
 
@@ -48,7 +54,7 @@ export default function SignupPage() {
       <RightContainer>
         <Container>
           <Form onSubmit={register}>
-            <Input
+            <Input data-test="email"
               type="text"
               placeholder="e-mail"
               disabled={wait}
@@ -57,7 +63,7 @@ export default function SignupPage() {
                 setEmail(e.target.value);
               }}
             />
-            <Input
+            <Input data-test="password"
               type="password"
               placeholder="password"
               disabled={wait}
@@ -66,7 +72,7 @@ export default function SignupPage() {
                 setPassword(e.target.value);
               }}
             />
-            <Input
+            <Input data-test="username"
               type="text"
               placeholder="username"
               disabled={wait}
@@ -75,7 +81,7 @@ export default function SignupPage() {
                 setUsername(e.target.value);
               }}
             />
-            <Input
+            <Input data-test="picture-url"
               type="text"
               placeholder="picture url"
               disabled={wait}
@@ -84,10 +90,10 @@ export default function SignupPage() {
                 setUrl(e.target.value);
               }}
             />
-            <Button type="submit">Sign Up</Button>
+            <Button data-test="sign-up-btn" type="submit">Sign Up</Button>
           </Form>
           <Message>
-            <Link to="/">Switch back to log in</Link>
+            <Link data-test="login-link" to="/">Switch back to log in</Link>
           </Message>
         </Container>
       </RightContainer>

@@ -13,7 +13,7 @@ export default function App() {
             <NavContainer></NavContainer>
             <Routes>
                 <Route path="/" element={<SigninPage />} />
-                <Route path="/signup" element={< SignupPage />} />
+                <Route path="/sign-up" element={< SignupPage />} />
                 <Route path="/timeline" element={<HomePage />} />
                 <Route path="/hashtag/:hashtag" element={<HashtagPage />} />
                 <Route path="/user/:id" element={<UserPage />} />
