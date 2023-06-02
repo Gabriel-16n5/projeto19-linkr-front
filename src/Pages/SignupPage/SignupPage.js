@@ -33,9 +33,15 @@ export default function SignupPage() {
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/signup`, body);
     promise.then((ok) => navigate("/"));
     promise.catch((erro) => {
+      if(erro.response.status === 400){
+        setWait(false);
+        return alert("preencha todos os campos corretamente");
+      } else if(erro.response.status === 409){
+        setWait(false);
+        return alert("Email ou usuário já cadastrado");
+      }
       alert(erro.message);
       setWait(false);
-      console.log(erro.message);
     });
   }
 
