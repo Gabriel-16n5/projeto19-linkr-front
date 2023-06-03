@@ -76,7 +76,7 @@ export default function SigninPage() {
                 setPassword(e.target.value);
               }}
             />
-            <Button data-test="login-btn" type="submit">Log in</Button>
+            <Button disabled={wait} data-test="login-btn" type="submit">Log in</Button>
           </Form>
           <Message>
 

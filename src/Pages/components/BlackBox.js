@@ -79,7 +79,7 @@ export default function BlackBox(props) {
       }, [isEditing]);
 
     return (
-        <Main >
+        <Main  data-test="post">
             <ImageLikesContainer>
                 <img
                     src={props.pictureUrl}
@@ -99,26 +99,26 @@ export default function BlackBox(props) {
             </ImageLikesContainer>
             <TextContainer>
                 <TextTopContainer>
-                    <p>{props.name}</p>
+                    <p data-test="username">{props.name}</p>
                     <IconsContainer>
-                    <Hover><BsPencilSquare size={20} onClick={clickEditing} /></Hover>
-                        <Hover><BsFillTrashFill size={20} onClick={deletePost} /></Hover>
+                    <Hover><BsPencilSquare data-test="edit-btn" size={20} onClick={clickEditing} /></Hover>
+                        <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={deletePost} /></Hover>
                     </IconsContainer>
-                </TextTopContainer>
+                </TextTopContainer >
                 {isEditing ? (
-                    <input
+                    <input data-test="edit-input"
                         ref={inputRef}
                         type="text"
                         defaultValue={text}
                         onKeyDown={keyPress}
                     />
                 ) : (
-                    <span ref={textRef}>{text}</span>
+                    <span data-test="description" ref={textRef}>{text}</span>
                 )}
-                <UrlContainer onClick={clickLink}>
+                <UrlContainer data-test="link" onClick={clickLink}>
                     <UrlTextContainer>
-                        <h2>{props.title}</h2>
-                        <p>
+                        <h2 >{props.title}</h2>
+                        <p >
                             {props.description}
                         </p>
                         <span>{props.url}</span>

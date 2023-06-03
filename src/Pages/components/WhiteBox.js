@@ -25,21 +25,21 @@ export default function WhiteBox(props) {
     });
   }
   return (
-    <Main>
+    <Main data-test="publish-box">
       <Imagem
         src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
         alt=""
       />
-      <TextContainer>
+      <TextContainer >
         <p>What are you going to share today?</p>
 
-        <UrlInput disabled={disabled} value={data.url} onChange={e => setData({...data,url:e.target.value})} placeholder={"http://..."}></UrlInput>
+        <UrlInput  data-test="link" disabled={disabled} value={data.url} onChange={e => setData({...data,url:e.target.value})} placeholder={"http://..."}></UrlInput>
 
-        <TextInput
+        <TextInput data-test="description"
         value={data.text} disabled={disabled}  onChange={e => setData({...data,text:e.target.value})}  placeholder={"Awesome article about #javascript"}
         ></TextInput>
 
-        <PublishButton onClick={publishPost}>Publish</PublishButton>
+        <PublishButton data-test="publish-btn" onClick={publishPost}>Publish</PublishButton>
       </TextContainer>
     </Main>
   );
