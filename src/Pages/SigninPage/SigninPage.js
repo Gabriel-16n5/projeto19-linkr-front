@@ -32,6 +32,7 @@ export default function SigninPage() {
       setToken(ok.data.token);
       localStorage.setItem("token", ok.data.token);
       localStorage.setItem("userUrl", ok.data.userUrl);
+      localStorage.setItem("username", ok.data.username);
       navigate("/timeline");
     });
     promise.catch((erro) => {
@@ -60,6 +61,7 @@ export default function SigninPage() {
               placeholder="e-mail"
               disabled={wait}
               value={email}
+              required
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
@@ -69,6 +71,7 @@ export default function SigninPage() {
               placeholder="password"
               disabled={wait}
               value={password}
+              required
               onChange={(e) => {
                 setPassword(e.target.value);
               }}

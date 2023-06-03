@@ -55,7 +55,17 @@ export default function BlackBox(props) {
     }
 
     function deletePost() {
-        setDeleted(true);
+      setDeleted(true);
+        const promise = axios.delete(`${process.env.REACT_APP_API_URL}/timeline/${props.postId}`,{ headers: { 'Authorization': `Bearer ${props.token}` }});
+        promise.then((ok) => {
+          return console.log(ok.data)
+        });
+        promise.catch((erro) => {
+          if(erro.response.status === 404){
+            return alert("Delete denied");
+          }
+          
+        });
     }
     function clickLink() {
         const url = props.url

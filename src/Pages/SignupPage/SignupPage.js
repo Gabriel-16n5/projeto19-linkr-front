@@ -59,6 +59,7 @@ export default function SignupPage() {
               placeholder="e-mail"
               disabled={wait}
               value={email}
+              required
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
@@ -68,6 +69,7 @@ export default function SignupPage() {
               placeholder="password"
               disabled={wait}
               value={password}
+              required
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -77,6 +79,7 @@ export default function SignupPage() {
               placeholder="username"
               disabled={wait}
               value={username}
+              required
               onChange={(e) => {
                 setUsername(e.target.value);
               }}
@@ -86,6 +89,7 @@ export default function SignupPage() {
               placeholder="picture url"
               disabled={wait}
               value={url}
+              required
               onChange={(e) => {
                 setUrl(e.target.value);
               }}
