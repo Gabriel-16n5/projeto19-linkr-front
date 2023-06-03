@@ -1,39 +1,56 @@
 import styled from "styled-components";
 import axios from "axios";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function WhiteBox(props) {
   const [data,setData] = useState({url:"",text:""})
-  
-  function publishPost(){
+  const [wait,setWait] = useState(false)
+  const navigate = useNavigate();
+  const userImg = localStorage.getItem("userUrl")
+
+  function publishPost(e){
+    e.preventDefault();
+    setWait(true)
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,data,{
       headers: {
         'Authorization': `Bearer ${props.token}`
       },
     });
     promise.then((res) => {
-      alert("Postado")
+      setWait(false)
+      setData({url:"",text:""})
+      return window.location.reload(false);
     });
     promise.catch((erro) => {
+      setWait(false)
+      setData({url:"",text:""})
+      if(erro.response.status === 400){
+        setWait(false);
+        return alert("invalid url");
+      } else if (erro.response.status === 401){
+        setWait(false);
+        return alert("invalid session");
+      }
       alert(erro.message);
     });
   }
   return (
-    <Main>
+    <Main data-test="publish-box">
       <Imagem
-        src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
-        alt=""
+        src={userImg}
+        alt="User image"
       />
-      <TextContainer>
+      <TextContainer onSubmit={publishPost}>
         <p>What are you going to share today?</p>
 
-        <UrlInput value={data.url} onChange={e => setData({...data,url:e.target.value})} placeholder={"http://..."}></UrlInput>
+        <UrlInput data-test="link" required disabled={wait} value={data.url} onChange={e => setData({...data,url:e.target.value})} placeholder={"http://..."}></UrlInput>
 
-        <TextInput
-        value={data.text} onChange={e => setData({...data,text:e.target.value})}  placeholder={"Awesome article about #javascript"}
+        <TextInput data-test="description"
+        value={data.text} disabled={wait} onChange={e => setData({...data,text:e.target.value})}  placeholder={"Awesome article about #javascript"}
         ></TextInput>
 
-        <PublishButton onClick={publishPost}>Publish</PublishButton>
+        <PublishButton disabled={wait} type="submit" data-test="publish-btn" >{wait===false ? "Publish" : "Publishing..."} </PublishButton>
       </TextContainer>
     </Main>
   );
@@ -64,7 +81,7 @@ const Main = styled.div`
   }
 `;
 
-const TextContainer = styled.div`
+const TextContainer = styled.form`
   height: 100%;
   width: 88%;
   display: flex;
@@ -116,4 +133,7 @@ const PublishButton = styled.button`
   margin-left: auto;
   border-radius: 5px;
   border: none;
+  :hover{
+    cursor: pointer;
+  }
 `;

@@ -6,6 +6,11 @@ export const Main = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
+h4{
+  color:white;
+  font-size:26px;
+  font-family: "Oswald", sans-serif;
+}
 `;
 
 export const TimeLine = styled.div`

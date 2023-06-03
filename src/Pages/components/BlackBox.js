@@ -154,7 +154,17 @@ export default function BlackBox(props) {
 
 
     function deletePost() {
-        setDeleted(true);
+      setDeleted(true);
+        const promise = axios.delete(`${process.env.REACT_APP_API_URL}/timeline/${props.postId}`,{ headers: { 'Authorization': `Bearer ${props.token}` }});
+        promise.then((ok) => {
+          return console.log(ok.data)
+        });
+        promise.catch((erro) => {
+          if(erro.response.status === 404){
+            return alert("Delete denied");
+          }
+          
+        });
     }
     function clickLink() {
         const url = props.url
@@ -168,10 +178,10 @@ export default function BlackBox(props) {
     }, [isEditing]);
 
     return (
-        <Main >
+        <Main data-test="post">
             <ImageLikesContainer>
                 <img
-                    src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
+                    src={props.pictureUrl}
                     alt="imagem perfil"
                 />
                 <HeartIcon
@@ -186,26 +196,26 @@ export default function BlackBox(props) {
             </ImageLikesContainer>
             <TextContainer>
                 <TextTopContainer>
-                    <p>{props.name}</p>
+                    <p data-test="username">{props.name}</p>
                     <IconsContainer>
-                        <BsPencilSquare size={20} onClick={clickEditing} />
-                        <Hover><BsFillTrashFill size={20} onClick={deletePost} /></Hover>
+                    <Hover><BsPencilSquare data-test="edit-btn" size={20} onClick={clickEditing} /></Hover>
+                        <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={deletePost} /></Hover>
                     </IconsContainer>
-                </TextTopContainer>
+                </TextTopContainer >
                 {isEditing ? (
-                    <input
+                    <input data-test="edit-input"
                         ref={inputRef}
                         type="text"
                         defaultValue={text}
                         onKeyDown={keyPress}
                     />
                 ) : (
-                    <span ref={textRef}>{text}</span>
+                    <span data-test="description" ref={textRef}>{text}</span>
                 )}
-                <UrlContainer onClick={clickLink}>
+                <UrlContainer data-test="link" onClick={clickLink}>
                     <UrlTextContainer>
-                        <h2>{props.title}</h2>
-                        <p>
+                        <h2 >{props.title}</h2>
+                        <p >
                             {props.description}
                         </p>
                         <span>{props.url}</span>
@@ -337,7 +347,7 @@ const IconsContainer = styled.div`
   width: 16px;
   display: flex;
   flex-direction: row;
-  width: 10%;
+  width:10%;
   gap: 10px;
   justify-content: space-between;
 

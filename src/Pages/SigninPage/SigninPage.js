@@ -26,13 +26,13 @@ export default function SigninPage() {
       email: `${email}`,
       password: `${password}`,
     };
-    console.log(body);
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/signin`, body);
     promise.then((ok) => {
+      console.log(ok.data);
       setToken(ok.data.token);
-      localStorage.setItem("token", ok.data.token)
-      localStorage.setItem("username", ok.data.username);
+      localStorage.setItem("token", ok.data.token);
       localStorage.setItem("userUrl", ok.data.userUrl);
+      localStorage.setItem("username", ok.data.username);
       navigate("/timeline");
     });
     promise.catch((erro) => {
@@ -61,6 +61,7 @@ export default function SigninPage() {
               placeholder="e-mail"
               disabled={wait}
               value={email}
+              required
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
@@ -70,15 +71,16 @@ export default function SigninPage() {
               placeholder="password"
               disabled={wait}
               value={password}
+              required
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
             />
-            <Button data-test="login-btn" type="submit">Log in</Button>
+            <Button disabled={wait} data-test="login-btn" type="submit">Log in</Button>
           </Form>
           <Message>
 
-            <Link data-test="sign-up-link" to="/signup">First time? Create an account!</Link>
+            <Link data-test="sign-up-link" to="/sign-up">First time? Create an account!</Link>
 
           </Message>
         </Container>
