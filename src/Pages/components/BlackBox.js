@@ -57,21 +57,19 @@ export default function BlackBox(props) {
 
 
     function fillHeart() {
+        let pipoca = false;
         const postId = props.postId
-        
         for (let i=0; i < peopleLikes.length; i++){
             const trueSentence = (peopleLikes[i].username.includes(username))
-            console.log(includesName)
-            if (trueSentence) {
+            if (trueSentence === true) {
                 setIncludesName(true)
-            } 
+                pipoca = true;
+            }
+            console.log(includesName)
         } 
 
-        console.log(includesName)
-        console.log(peopleNumberLikes)
 
-
-        if (peopleNumberLikes === 0) {
+        if (peopleNumberLikes === 0 && pipoca === true) {
             axios.post(`${process.env.REACT_APP_API_URL}/likes`, { postId }, {
                 headers: {
                     'Authorization': `Bearer ${props.token}`
@@ -86,8 +84,7 @@ export default function BlackBox(props) {
                 })
         }
 
-      
-        else if (!includesName) {
+        if (pipoca === false) {
             axios.post(`${process.env.REACT_APP_API_URL}/likes`, { postId }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -100,11 +97,7 @@ export default function BlackBox(props) {
                     console.log(error.response.data)
                     alert("Erro trying to like this post")
                 })
-        }
-
-
-        else {
-            console.log(`"postId": ${postId}`)
+        } else {
             axios.delete(`${process.env.REACT_APP_API_URL}/likes/${postId}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
