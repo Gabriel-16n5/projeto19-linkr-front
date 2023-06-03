@@ -30,7 +30,9 @@ export default function SigninPage() {
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/signin`, body);
     promise.then((ok) => {
       setToken(ok.data.token);
-      localStorage.setItem("token", ok.data.token);
+      localStorage.setItem("token", ok.data.token)
+      localStorage.setItem("username", ok.data.username);
+      localStorage.setItem("userUrl", ok.data.userUrl);
       navigate("/timeline");
     });
     promise.catch((erro) => {

@@ -24,6 +24,7 @@ export default function HomePage() {
   const navigate = useNavigate();
   const [data, setData] = useState(0);
 
+
   function noDelete() {
     setDeleted(false);
   }

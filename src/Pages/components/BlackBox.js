@@ -7,52 +7,151 @@ import { Tooltip } from "react-tooltip";
 import axios from 'axios';
 
 export default function BlackBox(props) {
-    const [filled, setFilled] = useState(false);
+    const [filled, setFilled] = useState(false)
     // const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
     const { setDeleted } = useContext(TimelineContext);
     const [isEditing, setIsEditing] = useState(false)
+    const [includesName, setIncludesName] = useState(false)
     const [text, setText] = useState(props.text)
     const textRef = useRef(null);
     const inputRef = useRef(null);
-    const peopleNumberLikes = props.peopleLike.length
-    const peopleLikes = props.peopleLike
+    const username = localStorage.getItem("username");
+    const token = localStorage.getItem("token");
+    let peopleLikes = props.peopleLike
+    let peopleNumberLikes = peopleLikes.length
 
-    function namePeopleLike(){
-        if(peopleNumberLikes === 0) return "No Likes"
-        else if (peopleNumberLikes === 1) return `${peopleLikes[0].username} curtiu`
-        else if (peopleNumberLikes === 2) return `${peopleLikes[0].username} e ${peopleLikes[1].username} curtiram`
-        else return `${peopleLikes[0].username}, ${peopleLikes[1].username} e mais ${Number(peopleNumberLikes)-2}curtiram`
+    function namePeopleLike() {
+        if (peopleLikes.length === 0) {
+            return "No Likes"
+        }
+        else if (!peopleLikes[0].username.includes(username)) {
+            if (peopleNumberLikes === 0) return "No Likes"
+            else if (peopleNumberLikes === 1) return `${peopleLikes[0].username} curtiu`
+            else if (peopleNumberLikes === 2) return `${peopleLikes[0].username} e ${peopleLikes[1].username} curtiram`
+            else return `${peopleLikes[0].username}, ${peopleLikes[1].username} e mais ${Number(peopleNumberLikes) - 2}curtiram`
+        } else {
+            if (peopleNumberLikes === 0) return "No Likes"
+            else if (peopleNumberLikes === 1) return `Você curtiu`
+            else if (peopleNumberLikes === 2) return `Você e ${peopleLikes[1].username} curtiram`
+            else return `Você, ${peopleLikes[0].username} e mais ${Number(peopleNumberLikes) - 2}curtiram`
+        }
     }
+
+    useEffect(() => {
+        checkLikes();
+    }, [peopleLikes]);
+
+    function checkLikes() {
+        if (peopleLikes.length === 0) {
+            return false
+        }
+        else if (peopleLikes[0].username.includes(username)) {
+            setFilled(true)
+            return true
+        }
+        else {
+            setFilled(false)
+            return false
+        }
+    }
+
+
+    function fillHeart() {
+        const postId = props.postId
+        
+        for (let i=0; i < peopleLikes.length; i++){
+            const trueSentence = (peopleLikes[i].username.includes(username))
+            console.log(includesName)
+            if (trueSentence) {
+                setIncludesName(true)
+            } 
+        } 
+
+        console.log(includesName)
+        console.log(peopleNumberLikes)
+
+
+        if (peopleNumberLikes === 0) {
+            axios.post(`${process.env.REACT_APP_API_URL}/likes`, { postId }, {
+                headers: {
+                    'Authorization': `Bearer ${props.token}`
+                }
+            })
+                .then(response => {
+                    alert("Post liked")
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                    alert("Erro trying to like this post")
+                })
+        }
+
+      
+        else if (!includesName) {
+            axios.post(`${process.env.REACT_APP_API_URL}/likes`, { postId }, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    alert("Post liked")
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                    alert("Erro trying to like this post")
+                })
+        }
+
+
+        else {
+            console.log(`"postId": ${postId}`)
+            axios.delete(`${process.env.REACT_APP_API_URL}/likes/${postId}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => {
+                    alert("Liked deleted")
+                })
+                .catch(error => {
+                    console.log(error.response.data)
+                    alert("Erro trying to unlike this post")
+                })
+        }
+    }
+
 
     function clickEditing() {
         setIsEditing(!isEditing)
     }
 
+
+
     function keyPress(e) {
         if (e.key === 'Enter') {
             setIsEditing(false)
             const newText = inputRef.current.value
-            axios.put(`${process.env.REACT_APP_API_URL}/timeline/${props.postId}`, { newText }, {headers: {
-                'Authorization': `Bearer ${props.token}`
-              }})
-    
-            .then(response => {
-                setText(newText)
-                console.log(response.message)
+            axios.put(`${process.env.REACT_APP_API_URL}/timeline/${props.postId}`, { newText }, {
+                headers: {
+                    'Authorization': `Bearer ${props.token}`
+                }
             })
-            .catch(error => {
-                console.log(error.message)
-                alert("It wasn't able to save new change")
-            });
+
+                .then(response => {
+                    setText(newText)
+                    console.log(response.message)
+                })
+                .catch(error => {
+                    console.log(error.message)
+                    alert("It wasn't able to save new change")
+                });
 
         } else if (e.key === 'Escape') {
             setIsEditing(false)
         }
     }
 
-    function fillHeart() {
-        setFilled(!filled);
-    }
+
 
     function deletePost() {
         setDeleted(true);
@@ -61,12 +160,12 @@ export default function BlackBox(props) {
         const url = props.url
         window.open(url, "_blank");
     }
-    
+
     useEffect(() => {
         if (isEditing) {
-          inputRef.current.focus();
+            inputRef.current.focus();
         }
-      }, [isEditing]);
+    }, [isEditing]);
 
     return (
         <Main >
@@ -79,12 +178,10 @@ export default function BlackBox(props) {
                     data-tooltip-id="my-tooltip"
                     data-tooltip-content={namePeopleLike()}
                     data-tooltip-place="bottom"
-                    onClick={fillHeart}
-                    filled={filled}>
+                    onClick={fillHeart}>
                     {filled ? <IoIosHeart size={24} /> : <IoIosHeartEmpty size={24} />}
                 </HeartIcon>
                 <ReactToolTip id="my-tooltip" />
-                {/* ao passar o mouse por cima <p>Ederson, Kevin e outras 39 pessoas</p> */}
                 <p>{`${peopleNumberLikes} likes`}</p>
             </ImageLikesContainer>
             <TextContainer>
