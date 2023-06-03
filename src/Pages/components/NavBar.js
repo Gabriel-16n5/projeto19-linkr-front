@@ -33,7 +33,7 @@ export default function NavBar() {
       <Seta >
         {icon}
         <img data-test="avatar"
-          src="https://conteudo.imguol.com.br/c/esporte/d0/2023/05/03/haaland-comemora-gol-marcado-durante-manchester-city-x-west-ham-pelo-campeonato-ingles-1683146420962_v2_450x600.jpg"
+          src={localStorage.getItem("userUrl")}
           alt=""
         />
       </Seta>
