@@ -94,7 +94,7 @@ export default function SignupPage() {
                 setUrl(e.target.value);
               }}
             />
-            <Button data-test="sign-up-btn" type="submit">Sign Up</Button>
+            <Button data-test="sign-up-btn" disabled={wait} type="submit">Sign Up</Button>
           </Form>
           <Message>
             <Link data-test="login-link" to="/">Switch back to log in</Link>

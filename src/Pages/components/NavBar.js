@@ -4,9 +4,8 @@ import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useState } from "react";
 import Search from "./Search";
 export default function NavBar() {
-  const [icon, setIcon] = useState(<BsChevronDown onClick={openlogout} />);
+  const [icon, setIcon] = useState(0);
   const [logout, setLogout] = useState("none");
-  let i = 0;
   const navigate = useNavigate();
 
   function logoutUser(){
@@ -15,31 +14,29 @@ export default function NavBar() {
   }
 
   function openlogout() {
-    if (i === 0) {
-      setIcon(<BsChevronUp onClick={openlogout} />);
+    if (icon === 0) {
       setLogout("flex");
-      i = 1;
-    } else {
-      
-      setIcon(<BsChevronDown onClick={openlogout} />);
+      setIcon(1);
+    }
+    if (icon === 1) {
       setLogout("none");
-      i = 0;
+      setIcon(0);
     }
   }
   return (
     <Main>
       <h1>linkr</h1>
       <Search />
-      <Seta >
-        {icon}
+      <Seta onClick={openlogout} >
+      {icon===0 ? <BsChevronDown/> : <BsChevronUp/> }
         <img data-test="avatar"
           src={localStorage.getItem("userUrl")}
           alt=""
         />
-      </Seta>
       <Logout data-test="menu" logout={logout}>
         <Hover><p data-test="logout" onClick={logoutUser}>Logout</p></Hover>
       </Logout>
+      </Seta>
     </Main>
   );
 }
@@ -48,6 +45,7 @@ const Seta = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  display: ${(props) => props.logout};
 `;
 
 const Logout = styled.div`
