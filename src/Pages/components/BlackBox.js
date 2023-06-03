@@ -79,7 +79,7 @@ export default function BlackBox(props) {
       }, [isEditing]);
 
     return (
-        <Main  data-test="post">
+        <Main data-test="post">
             <ImageLikesContainer>
                 <img
                     src={props.pictureUrl}

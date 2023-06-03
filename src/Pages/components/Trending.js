@@ -17,8 +17,8 @@ export default function Trending() {
     <Main>
       <h1>trending</h1>
       <section></section>
-      {hashtags.map((a) => (
-        <p># {a}</p>
+      {hashtags.map((a, i) => (
+        <p key={i}># {a}</p>
       ))}
     </Main>
   );
