@@ -50,7 +50,7 @@ export default function WhiteBox(props) {
         value={data.text} disabled={wait} onChange={e => setData({...data,text:e.target.value})}  placeholder={"Awesome article about #javascript"}
         ></TextInput>
 
-        <PublishButton disabled={wait} type="submit" data-test="publish-btn" >{wait===false ? "Publish" : "Publishing"} </PublishButton>
+        <PublishButton disabled={wait} type="submit" data-test="publish-btn" >{wait===false ? "Publish" : "Publishing..."} </PublishButton>
       </TextContainer>
     </Main>
   );
