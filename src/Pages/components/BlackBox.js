@@ -68,7 +68,6 @@ export default function BlackBox(props) {
             console.log(includesName)
         } 
 
-
         if (peopleNumberLikes === 0 && pipoca === true) {
             axios.post(`${process.env.REACT_APP_API_URL}/likes`, { postId }, {
                 headers: {
@@ -117,8 +116,6 @@ export default function BlackBox(props) {
     function clickEditing() {
         setIsEditing(!isEditing)
     }
-
-
 
     function keyPress(e) {
         if (e.key === 'Enter') {
@@ -211,7 +208,7 @@ export default function BlackBox(props) {
                         <p >
                             {props.description}
                         </p>
-                        <span>{props.url}</span>
+                        <a href={props.url}></a>
                     </UrlTextContainer>
                     <img src={props.image} alt="imagem site" />
                 </UrlContainer>
