@@ -26,7 +26,7 @@ export default function Search() {
         <AiOutlineSearch />
       </span>
       {data === 0 || !data[0] ? <></> : <MenuDown>{data.map(a=> <div onClick={b=> navigate(`/user/${a.id}`)}>
-        <img href={a.pictureUrl}/>
+        <img src={a.pictureUrl}/>
         <p>{a.username}</p>
         </div>)} </MenuDown> }
       
