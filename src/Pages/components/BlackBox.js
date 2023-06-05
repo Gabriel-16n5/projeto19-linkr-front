@@ -5,8 +5,10 @@ import { useContext, useRef, useState, useEffect } from 'react';
 import { TimelineContext } from '../../contexts/TimelineContext';
 import { Tooltip } from "react-tooltip";
 import axios from 'axios';
+import { useNavigate } from "react-router";
 
 export default function BlackBox(props) {
+    const navigate = useNavigate();
     const [filled, setFilled] = useState(false)
     // const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
     const { setDeleted } = useContext(TimelineContext);
@@ -19,6 +21,7 @@ export default function BlackBox(props) {
     const token = localStorage.getItem("token");
     let peopleLikes = props.peopleLike
     let peopleNumberLikes = peopleLikes.length
+        
 
     function namePeopleLike() {
         if (peopleLikes.length === 0) {
@@ -156,10 +159,7 @@ export default function BlackBox(props) {
           
         });
     }
-    function clickLink() {
-        const url = props.url
-        window.open(url, "_blank");
-    }
+    
 
     useEffect(() => {
         if (isEditing) {
@@ -186,7 +186,8 @@ export default function BlackBox(props) {
             </ImageLikesContainer>
             <TextContainer>
                 <TextTopContainer>
-                    <p data-test="username">{props.name}</p>
+                    
+                    <p onClick={e=> !props.userId ? <></>:navigate(`/user/${props.userId}`)} data-test="username">{props.name}</p>
                     <IconsContainer>
                     <Hover><BsPencilSquare data-test="edit-btn" size={20} onClick={clickEditing} /></Hover>
                         <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={deletePost} /></Hover>
@@ -202,13 +203,13 @@ export default function BlackBox(props) {
                 ) : (
                     <span data-test="description" ref={textRef}>{text}</span>
                 )}
-                <UrlContainer data-test="link" onClick={clickLink}>
+                <UrlContainer data-test="link" onClick={e=> window.open(props.url, "_blank")}>
                     <UrlTextContainer>
                         <h2 >{props.title}</h2>
                         <p >
                             {props.description}
                         </p>
-                        <a href={props.url}></a>
+                        <p>{props.url}</p>
                     </UrlTextContainer>
                     <img src={props.image} alt="imagem site" />
                 </UrlContainer>
