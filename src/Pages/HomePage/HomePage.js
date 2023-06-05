@@ -24,14 +24,25 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState(0);
+const [info,setInfo] = useState();
   const [hashtags, setHashtags] = useState([]);
-
 
   function noDelete() {
     setDeleted(false);
   }
 
   function yesDelete() {
+      const promise = axios.delete(`${process.env.REACT_APP_API_URL}/timeline/${info}`,{ headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` }});
+        promise.then((ok) => {
+          return console.log(ok.data)
+        });
+        promise.catch((erro) => {
+         if(erro.response.status === 404){
+            return alert("Delete denied");
+          }
+          
+        });
+    
     setDeleted(false);
     setLoading(true);
 
@@ -83,13 +94,13 @@ export default function HomePage() {
       ) : (
         <></>
       )}
-    {console.log(data)}
+    {console.log(info)}
       <Main>
         <NavBar />
         <TimeLine>
           <h1>Timeline</h1>
           <WhiteBox token={localStorage.getItem("token")} />
-          {data===0 ? <h4>Loading posts...</h4> : data!==0 ? data.map((a, i)=> <BlackBox key={i} userId={a.userId} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>) : ""/*<h4>There are no posts yet</h4>*/}
+          {data===0 ? <h4>Loading posts...</h4> : data!==0 ? data.map((a, i)=> <BlackBox key={i} setInfo={setInfo} userId={a.userId} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>) : ""/*<h4>There are no posts yet</h4>*/}
           {!data && data!==0 ? <h4 data-test="message" >There are no posts yet</h4> : ""}
         </TimeLine>
         <MenuLeft>
