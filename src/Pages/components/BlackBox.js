@@ -144,18 +144,10 @@ export default function BlackBox(props) {
 
 
 
-    function deletePost() {
+    function deletePost(id) {
       setDeleted(true);
-        const promise = axios.delete(`${process.env.REACT_APP_API_URL}/timeline/${props.postId}`,{ headers: { 'Authorization': `Bearer ${props.token}` }});
-        promise.then((ok) => {
-          return console.log(ok.data)
-        });
-        promise.catch((erro) => {
-          if(erro.response.status === 404){
-            return alert("Delete denied");
-          }
-          
-        });
+      props.setInfo(id)
+      
     }
     
 
@@ -189,7 +181,7 @@ export default function BlackBox(props) {
                     <p onClick={e=> !props.userId ? <></>:navigate(`/user/${props.userId}`)} data-test="username">{props.name}</p>
                     <IconsContainer>
                     <Hover><BsPencilSquare data-test="edit-btn" size={20} onClick={clickEditing} /></Hover>
-                        <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={deletePost} /></Hover>
+                        <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={a=> deletePost(props.postId)} /></Hover>
                     </IconsContainer>
                 </TextTopContainer >
                 {isEditing ? (
