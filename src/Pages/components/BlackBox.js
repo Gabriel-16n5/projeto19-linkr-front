@@ -60,18 +60,18 @@ export default function BlackBox(props) {
 
 
     function fillHeart() {
-        let pipoca = false;
+        let nameOn = false;
         const postId = props.postId
         for (let i=0; i < peopleLikes.length; i++){
             const trueSentence = (peopleLikes[i].username.includes(username))
             if (trueSentence === true) {
                 setIncludesName(true)
-                pipoca = true;
+                nameOn = true;
             }
             console.log(includesName)
         } 
 
-        if (peopleNumberLikes === 0 && pipoca === true) {
+        if (peopleNumberLikes === 0 && nameOn === true) {
             axios.post(`${process.env.REACT_APP_API_URL}/likes`, { postId }, {
                 headers: {
                     'Authorization': `Bearer ${props.token}`
@@ -86,7 +86,7 @@ export default function BlackBox(props) {
                 })
         }
 
-        if (pipoca === false) {
+        if (nameOn === false) {
             axios.post(`${process.env.REACT_APP_API_URL}/likes`, { postId }, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -182,11 +182,12 @@ export default function BlackBox(props) {
                     data-tooltip-id="my-tooltip"
                     data-tooltip-content={namePeopleLike()}
                     data-tooltip-place="bottom"
+                    data-test="like-btn"
                     onClick={heartClick}>
                     {filled ? <IoIosHeart size={24} /> : <IoIosHeartEmpty size={24} />}
                 </HeartIcon>
-                <ReactToolTip id="my-tooltip" />
-                <p>{`${peopleNumberLikes} likes`}</p>
+                <ReactToolTip id="my-tooltip" data-test="tooltip"/>
+                <p data-test="counter"> {`${peopleNumberLikes} likes`}</p>
             </ImageLikesContainer>
             <TextContainer>
                 <TextTopContainer>
