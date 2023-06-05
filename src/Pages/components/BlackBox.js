@@ -53,6 +53,11 @@ export default function BlackBox(props) {
         }
     }
 
+    function heartClick() {
+        setFilled(!filled);
+        fillHeart()
+    }
+
 
     function fillHeart() {
         let pipoca = false;
@@ -177,7 +182,7 @@ export default function BlackBox(props) {
                     data-tooltip-id="my-tooltip"
                     data-tooltip-content={namePeopleLike()}
                     data-tooltip-place="bottom"
-                    onClick={fillHeart}>
+                    onClick={heartClick}>
                     {filled ? <IoIosHeart size={24} /> : <IoIosHeartEmpty size={24} />}
                 </HeartIcon>
                 <ReactToolTip id="my-tooltip" />
