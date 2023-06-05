@@ -27,12 +27,12 @@ export default function WhiteBox(props) {
       setData({url:"",text:""})
       if(erro.response.status === 400){
         setWait(false);
-        return alert("invalid url");
+        return alert("Houve um erro ao publicar seu link");
       } else if (erro.response.status === 401){
         setWait(false);
-        return alert("invalid session");
+        return alert("Houve um erro ao publicar seu link");
       }
-      alert(erro.message);
+      alert("Houve um erro ao publicar seu link");
     });
   }
   return (

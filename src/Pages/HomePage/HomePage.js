@@ -50,7 +50,7 @@ export default function HomePage() {
         
       });
       promise.catch((erro) => {
-        alert(erro.message);
+        alert("Houve um erro ao publicar seu link");
       });
     }
   }, [navigate]);
