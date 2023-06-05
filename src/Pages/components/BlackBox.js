@@ -18,6 +18,7 @@ export default function BlackBox(props) {
     const textRef = useRef(null);
     const inputRef = useRef(null);
     const username = localStorage.getItem("username");
+    const name = props.name
     const token = localStorage.getItem("token");
     let peopleLikes = props.peopleLike
     let peopleNumberLikes = peopleLikes.length
@@ -186,8 +187,11 @@ export default function BlackBox(props) {
                     
                     <p onClick={e=> !props.userId ? <></>:navigate(`/user/${props.userId}`)} data-test="username">{props.name}</p>
                     <IconsContainer>
-                    <Hover><BsPencilSquare data-test="edit-btn" size={20} onClick={clickEditing} /></Hover>
-                        <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={a=> deletePost(props.postId)} /></Hover>
+
+                    { (name===username) ? <><Hover><BsPencilSquare data-test="edit-btn" size={20} onClick={clickEditing} /></Hover>
+                        <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={deletePost} /></Hover></> :
+                        <></>}
+                        
                     </IconsContainer>
                 </TextTopContainer >
                 {isEditing ? (
