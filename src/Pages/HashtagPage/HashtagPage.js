@@ -45,6 +45,7 @@ export default function UserPage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState(0);
+  const [hashtags, setHashtags] = useState([]);
   const params = useParams()
 
   function noDelete() {
@@ -71,6 +72,13 @@ export default function UserPage() {
         alert(erro.message);
       });
     }
+    const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag`);
+      promise.then((res) => {
+        setHashtags(res.data);
+      });
+      promise.catch((erro) => {
+        alert(erro.message);
+      });
   }, [navigate]);
  console.log(data)
   return (
@@ -99,7 +107,7 @@ export default function UserPage() {
           {!data[0] && data!==0 ? <h4 data-test="message" >There are no posts yet</h4> : ""}
         </TimeLine>
         <MenuLeft>
-          <Trending />
+          <Trending tags={hashtags} />
         </MenuLeft>
       </Main>
     </>

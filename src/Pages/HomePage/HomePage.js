@@ -19,11 +19,13 @@ import axios from "axios";
 //import Search from "../components/Search";
 
 export default function HomePage() {
+  
   const { deleted, setDeleted } = useContext(TimelineContext);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState(0);
-  const [info,setInfo] = useState();
+const [info,setInfo] = useState();
+  const [hashtags, setHashtags] = useState([]);
 
   function noDelete() {
     setDeleted(false);
@@ -56,6 +58,7 @@ export default function HomePage() {
           'Authorization': `Bearer ${token}`
         },
       });
+
       promise.then((res) => {
         setData(res.data);
         
@@ -64,6 +67,13 @@ export default function HomePage() {
         alert("Houve um erro ao publicar seu link");
       });
     }
+    const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag`);
+      promise.then((res) => {
+        setHashtags(res.data);
+      });
+      promise.catch((erro) => {
+        alert(erro.message);
+      });
   }, [navigate]);
  
 
@@ -94,7 +104,7 @@ export default function HomePage() {
           {!data && data!==0 ? <h4 data-test="message" >There are no posts yet</h4> : ""}
         </TimeLine>
         <MenuLeft>
-          <Trending />
+          <Trending tags={hashtags}/>
         </MenuLeft>
       </Main>
     </>
