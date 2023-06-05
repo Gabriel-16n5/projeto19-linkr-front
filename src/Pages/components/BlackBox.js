@@ -207,7 +207,7 @@ export default function BlackBox(props) {
                         <p >
                             {props.description}
                         </p>
-                        <a href={props.url}></a>
+                        <a href={props.url}>{props.url}</a>
                     </UrlTextContainer>
                     <img src={props.image} alt="imagem site" />
                 </UrlContainer>
