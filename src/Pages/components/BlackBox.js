@@ -42,16 +42,14 @@ export default function BlackBox(props) {
     }, [peopleLikes]);
 
     function checkLikes() {
-        if (peopleLikes.length === 0) {
-            return false
+        if (peopleNumberLikes === 0) {
+            setFilled(false)
         }
         else if (peopleLikes[0].username.includes(username)) {
             setFilled(true)
-            return true
         }
         else {
             setFilled(false)
-            return false
         }
     }
 
@@ -185,6 +183,7 @@ export default function BlackBox(props) {
                     alt="imagem perfil"
                 />
                 <HeartIcon
+                    filled={filled}
                     data-tooltip-id="my-tooltip"
                     data-tooltip-content={namePeopleLike()}
                     data-tooltip-place="bottom"
@@ -337,7 +336,7 @@ const UrlTextContainer = styled.div`
 `;
 
 const HeartIcon = styled.div`
-  color: ${({ filled }) => (filled ? "red" : "white")};
+  color: ${ props  => (props.filled ? "red" : "white")};
   cursor: pointer;
 `;
 
