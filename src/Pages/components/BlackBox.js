@@ -194,14 +194,14 @@ export default function BlackBox(props) {
                 ) : (
                     <span data-test="description" ref={textRef}>{text}</span>
                 )}
-                <UrlContainer data-test="link" onClick={e=> window.open(props.url, "_blank")}>
+                <UrlContainer onClick={e=> window.open(props.url, "_blank")}>
                     <UrlTextContainer>
                         <h2 >{props.title}</h2>
                         <p >
                             {props.description}
                         </p>
 
-                        <p>{props.url}</p>
+                        <a data-test="link" href={props.url}>{props.url}</a>
 
                         
 
