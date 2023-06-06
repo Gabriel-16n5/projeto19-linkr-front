@@ -75,8 +75,6 @@ const [info,setInfo] = useState();
         alert(erro.message);
       });
   }, [navigate]);
- 
-  console.log(data)
   return (
     <>
       {deleted ? (
