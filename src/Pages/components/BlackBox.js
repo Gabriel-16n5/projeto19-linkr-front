@@ -12,6 +12,7 @@ export default function BlackBox(props) {
     const { setDeleted } = useContext(TimelineContext);
     const [isEditing, setIsEditing] = useState(false)
     const [includesName, setIncludesName] = useState(false)
+    const [loadingLike, setLoadingLike] = useState(false)
     const [text, setText] = useState(props.text)
     const textRef = useRef(null);
     const inputRef = useRef(null);
@@ -22,14 +23,22 @@ export default function BlackBox(props) {
     let peopleNumberLikes = peopleLikes.length
 
     function namePeopleLike() {
+        let included = false;
+        for (let i=0; i < peopleLikes.length; i++){
+            const trueSentence = (peopleLikes[i].username.includes(username))
+            if (trueSentence === true) {
+                included = true;
+            }
+        }
+
         if (peopleLikes.length === 0) {
             return "No Likes"
         }
-        else if (!peopleLikes[0].username.includes(username)) {
+        else if (included === false) {
             if (peopleNumberLikes === 0) return "No Likes"
             else if (peopleNumberLikes === 1) return `${peopleLikes[0].username} curtiu`
             else if (peopleNumberLikes === 2) return `${peopleLikes[0].username} e ${peopleLikes[1].username} curtiram`
-            else return `${peopleLikes[0].username}, ${peopleLikes[1].username} e mais ${Number(peopleNumberLikes) - 2}curtiram`
+            else return `${peopleLikes[0].username}, ${peopleLikes[1].username} e mais ${Number(peopleNumberLikes) - 2} curtiram`
         } else {
             if (peopleNumberLikes === 0) return "No Likes"
             else if (peopleNumberLikes === 1) return `Você curtiu`
@@ -38,15 +47,22 @@ export default function BlackBox(props) {
         }
     }
 
-    useEffect(() => {
-        checkLikes();
-    }, [peopleLikes]);
+
+        setInterval(checkLikes, 1000);
 
     function checkLikes() {
+        let included = false;
+        for (let i=0; i < peopleLikes.length; i++){
+            const trueSentence = (peopleLikes[i].username.includes(username))
+            if (trueSentence === true) {
+                included = true;
+            }
+        }
+
         if (peopleNumberLikes === 0) {
             setFilled(false)
         }
-        else if (peopleLikes[0].username.includes(username)) {
+        else if (included === true) {
             setFilled(true)
         }
         else {
@@ -61,6 +77,10 @@ export default function BlackBox(props) {
 
 
     function fillHeart() {
+        if (!loadingLike) {
+
+        setLoadingLike(true)
+
         let nameOn = false;
         const postId = props.postId
         for (let i=0; i < peopleLikes.length; i++){
@@ -80,6 +100,7 @@ export default function BlackBox(props) {
             })
                 .then(response => {
                     alert("Post liked")
+                    setLoadingLike(false)
                 })
                 .catch(error => {
                     console.log(error.response.data)
@@ -95,6 +116,7 @@ export default function BlackBox(props) {
             })
                 .then(response => {
                     alert("Post liked")
+                    setLoadingLike(false)
                 })
                 .catch(error => {
                     console.log(error.response.data)
@@ -108,12 +130,15 @@ export default function BlackBox(props) {
             })
                 .then(response => {
                     alert("Liked deleted")
+                    setLoadingLike(false)
                 })
                 .catch(error => {
                     console.log(error.response.data)
                     alert("Erro trying to unlike this post")
                 })
         }
+    }
+    window.location.reload(false)
     }
 
 
@@ -184,7 +209,9 @@ export default function BlackBox(props) {
                     data-tooltip-content={namePeopleLike()}
                     data-tooltip-place="bottom"
                     data-test="like-btn"
-                    onClick={heartClick}>
+                    onClick={heartClick}
+                    disabled={loadingLike}
+                    >
                     {filled ? <IoIosHeart size={24} /> : <IoIosHeartEmpty size={24} />}
                 </HeartIcon>
                 <ReactToolTip id="my-tooltip" data-test="tooltip"/>
