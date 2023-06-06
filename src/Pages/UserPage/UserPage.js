@@ -22,6 +22,7 @@ export default function UserPage() {
   const navigate = useNavigate();
   const [data, setData] = useState(0);
   const params = useParams()
+  const [hashtags, setHashtags] = useState([]);
 
   function noDelete() {
     setDeleted(false);
@@ -47,6 +48,13 @@ export default function UserPage() {
         alert(erro.message);
       });
     }
+    const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag`);
+      promise.then((res) => {
+        setHashtags(res.data);
+      });
+      promise.catch((erro) => {
+        alert(erro.message);
+      });
   }, [navigate]);
  
 
@@ -72,11 +80,11 @@ export default function UserPage() {
         <NavBar />
         <TimeLine>
           <h1>{!data[0] || data===0 ? <>Buscando usuario</> : <>{data[0].username} posts</>}</h1>
-          {data===0 ? <h4>Loading posts...</h4> : !data ? <></>  : data.map((a, i)=> <BlackBox key={i} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
+          {data===0 ? <h4>Loading posts...</h4> : !data ? <></>  : data.map((a, i)=> <BlackBox key={i} tag={a.tag}  pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
           {!data[0] && data!==0 ? <h4 data-test="message" >There are no posts yet</h4> : ""}
         </TimeLine>
         <MenuLeft>
-          <Trending />
+          <Trending tags={hashtags} />
         </MenuLeft>
       </Main>
     </>

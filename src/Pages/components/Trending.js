@@ -1,25 +1,16 @@
 import styled from "styled-components";
 
-export default function Trending() {
-  const hashtags = [
-    "javascript",
-    "react",
-    "react-native",
-    "material",
-    "web-dev",
-    "mobile",
-    "css",
-    "html",
-    "node",
-    "sql",
-  ];
+export default function Trending(props) {
+  
+
   return (
-    <Main>
+    <Main data-test="trending">
       <h1>trending</h1>
-      <section></section>
-      {hashtags.map((a, i) => (
-        <p key={i}># {a}</p>
-      ))}
+      <section>
+        {props.tags.map((a, i) => (
+          <p data-test="hashtag" key={i}> {a.text}</p>
+        ))}
+      </section>
     </Main>
   );
 }
