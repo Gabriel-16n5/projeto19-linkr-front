@@ -11,11 +11,15 @@ export default function WhiteBox(props) {
   const userImg = localStorage.getItem("userUrl")
 
   function publishPost(e){
-
+    let sapo
     if(!wait) {
-    const a = data.text.match(/#\w+/g)
-    const sapo = a[0].replace("#","")
-    const tags = {
+    let a = data.text.match(/#\w+/g)
+    if(a === null){
+      sapo = ""
+    }else {
+      sapo = a[0].replace("#","")
+    }
+    let tags = {
       tag: sapo
     }
     const holder = {
