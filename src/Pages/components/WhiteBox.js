@@ -16,10 +16,16 @@ export default function WhiteBox(props) {
     const tags = {
       tag: sapo
     }
-
+    const holder = {
+      url: data.url,
+      text: data.text,
+      tag: tags.tag
+    }
+    console.log(holder)
+    console.log(data)
     e.preventDefault();
     setWait(true)
-    const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,data,{
+    const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,holder,{
       headers: {
         'Authorization': `Bearer ${props.token}`
       },
