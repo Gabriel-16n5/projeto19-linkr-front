@@ -10,6 +10,8 @@ export default function WhiteBox(props) {
   const userImg = localStorage.getItem("userUrl")
 
   function publishPost(e){
+    if(!wait) {
+
     e.preventDefault();
     setWait(true)
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,data,{
@@ -23,17 +25,12 @@ export default function WhiteBox(props) {
       return window.location.reload(false);
     });
     promise.catch((erro) => {
+      alert("Houve um erro ao publicar seu link");
       setWait(false)
       setData({url:"",text:""})
-      if(erro.response.status === 400){
-        setWait(false);
-        return alert("Houve um erro ao publicar seu link");
-      } else if (erro.response.status === 401){
-        setWait(false);
-        return alert("Houve um erro ao publicar seu link");
-      }
-      alert("Houve um erro ao publicar seu link");
+      return window.location.reload(false);
     });
+  }
   }
   return (
     <Main data-test="publish-box">
