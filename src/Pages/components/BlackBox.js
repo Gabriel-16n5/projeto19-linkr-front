@@ -5,8 +5,12 @@ import { useContext, useRef, useState, useEffect } from 'react';
 import { TimelineContext } from '../../contexts/TimelineContext';
 import { Tooltip } from "react-tooltip";
 import axios from 'axios';
+import { useNavigate } from "react-router";
+import reactStringReplace from 'react-string-replace';
+import { Link } from 'react-router-dom';
 
 export default function BlackBox(props) {
+    const navigate = useNavigate();
     const [filled, setFilled] = useState(false)
     // const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
     const { setDeleted } = useContext(TimelineContext);
@@ -14,6 +18,7 @@ export default function BlackBox(props) {
     const [includesName, setIncludesName] = useState(false)
     const [loadingLike, setLoadingLike] = useState(false)
     const [text, setText] = useState(props.text)
+    const [tags, setags] = useState(props.tag)
     const textRef = useRef(null);
     const inputRef = useRef(null);
     const username = localStorage.getItem("username");
@@ -47,9 +52,12 @@ export default function BlackBox(props) {
         }
     }
 
-
-        setInterval(checkLikes, 1000);
-
+    useEffect(() => {
+        checkLikes();
+    }, [peopleLikes]);
+  
+    setInterval(checkLikes, 1000);
+  
     function checkLikes() {
         let included = false;
         for (let i=0; i < peopleLikes.length; i++){
@@ -89,7 +97,6 @@ export default function BlackBox(props) {
                 setIncludesName(true)
                 nameOn = true;
             }
-            console.log(includesName)
         } 
 
         if (peopleNumberLikes === 0 && nameOn === true) {
@@ -141,7 +148,6 @@ export default function BlackBox(props) {
     window.location.reload(false)
     }
 
-
     function clickEditing() {
         setIsEditing(!isEditing)
     }
@@ -172,23 +178,12 @@ export default function BlackBox(props) {
 
 
 
-    function deletePost() {
+    function deletePost(id) {
       setDeleted(true);
-        const promise = axios.delete(`${process.env.REACT_APP_API_URL}/timeline/${props.postId}`,{ headers: { 'Authorization': `Bearer ${props.token}` }});
-        promise.then((ok) => {
-          return console.log(ok.data)
-        });
-        promise.catch((erro) => {
-          if(erro.response.status === 404){
-            return alert("Delete denied");
-          }
-          
-        });
+      props.setInfo(id)
+      
     }
-    function clickLink() {
-        const url = props.url
-        window.open(url, "_blank");
-    }
+    
 
     useEffect(() => {
         if (isEditing) {
@@ -219,11 +214,14 @@ export default function BlackBox(props) {
             </ImageLikesContainer>
             <TextContainer>
                 <TextTopContainer>
-                    <p data-test="username">{props.name}</p>
+                    
+                    <p onClick={e=> !props.userId ? <></>:navigate(`/user/${props.userId}`)} data-test="username">{props.name}</p>
                     <IconsContainer>
+
                     { (name===username) ? <><Hover><BsPencilSquare data-test="edit-btn" size={20} onClick={clickEditing} /></Hover>
                         <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={deletePost} /></Hover></> :
                         <></>}
+                        
                     </IconsContainer>
                 </TextTopContainer >
                 {isEditing ? (
@@ -234,15 +232,23 @@ export default function BlackBox(props) {
                         onKeyDown={keyPress}
                     />
                 ) : (
-                    <span data-test="description" ref={textRef}>{text}</span>
+                    <span data-test="description" ref={textRef}>
+                            {reactStringReplace(`${text}`, `#${tags}`, (match, i) => (
+                            <Link to={`/hashtag/${tags}`}>{match}</Link>))}
+                        </span>
                 )}
-                <UrlContainer data-test="link" onClick={clickLink}>
+                <UrlContainer onClick={e=> window.open(props.url, "_blank")}>
                     <UrlTextContainer>
                         <h2 >{props.title}</h2>
+                        
                         <p >
                             {props.description}
                         </p>
-                        <a href={props.url}>{props.url}</a>
+
+                        <a data-test="link" href={props.url}>{props.url}</a>
+
+                        
+
                     </UrlTextContainer>
                     <img src={props.image} alt="imagem site" />
                 </UrlContainer>

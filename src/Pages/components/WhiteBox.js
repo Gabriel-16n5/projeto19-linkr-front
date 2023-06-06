@@ -4,15 +4,28 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function WhiteBox(props) {
+  const regex = /#\w+/gm;
   const [data,setData] = useState({url:"",text:""})
   const [wait,setWait] = useState(false)
   const navigate = useNavigate();
   const userImg = localStorage.getItem("userUrl")
 
   function publishPost(e){
+    const a = data.text.match(/#\w+/g)
+    const sapo = a[0].replace("#","")
+    const tags = {
+      tag: sapo
+    }
+    const holder = {
+      url: data.url,
+      text: data.text,
+      tag: tags.tag
+    }
+    console.log(holder)
+    console.log(data)
     e.preventDefault();
     setWait(true)
-    const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,data,{
+    const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,holder,{
       headers: {
         'Authorization': `Bearer ${props.token}`
       },
@@ -34,6 +47,15 @@ export default function WhiteBox(props) {
       }
       alert("Houve um erro ao publicar seu link");
     });
+
+    const promiseTags = axios.post(`${process.env.REACT_APP_API_URL}/hashtag`, tags);
+    promiseTags.then((res) => {
+      console.log(tags)
+    });
+    promiseTags.catch((erro) => {
+      alert(erro.message);
+    });
+
   }
   return (
     <Main data-test="publish-box">
