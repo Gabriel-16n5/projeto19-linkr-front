@@ -103,7 +103,7 @@ export default function UserPage() {
       <Main>
         <NavBar />
         <TimeLine>
-          <h1>{!data[0] || data===0 ? <>Looking for hashtags</> : <>{data[0].hashtagname}</>}</h1>
+          <h1 data-test="hashtag-title">{!data[0] || data===0 ? <>Looking for hashtags</> : <># {data[0].hashtagname}</>}</h1>
           {data===0 ? <h4>Loading posts...</h4> : !data ? <></>  : data.map((a, i)=> <BlackBox key={i} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
           {!data[0] && data!==0 ? <h4 data-test="message" >There are no posts yet</h4> : ""}
         </TimeLine>

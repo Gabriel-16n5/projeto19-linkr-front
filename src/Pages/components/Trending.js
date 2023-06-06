@@ -4,12 +4,13 @@ export default function Trending(props) {
   
 
   return (
-    <Main>
+    <Main data-test="trending">
       <h1>trending</h1>
-      <section></section>
-      {props.tags.map((a, i) => (
-        <p key={i}> {a.text}</p>
-      ))}
+      <section>
+        {props.tags.map((a, i) => (
+          <p data-test="hashtag" key={i}> {a.text}</p>
+        ))}
+      </section>
     </Main>
   );
 }
