@@ -11,6 +11,8 @@ export default function WhiteBox(props) {
   const userImg = localStorage.getItem("userUrl")
 
   function publishPost(e){
+
+    if(!wait) {
     const a = data.text.match(/#\w+/g)
     const sapo = a[0].replace("#","")
     const tags = {
@@ -21,8 +23,6 @@ export default function WhiteBox(props) {
       text: data.text,
       tag: tags.tag
     }
-    console.log(holder)
-    console.log(data)
     e.preventDefault();
     setWait(true)
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,holder,{
@@ -36,16 +36,10 @@ export default function WhiteBox(props) {
       return window.location.reload(false);
     });
     promise.catch((erro) => {
+      alert("Houve um erro ao publicar seu link");
       setWait(false)
       setData({url:"",text:""})
-      if(erro.response.status === 400){
-        setWait(false);
-        return alert("Houve um erro ao publicar seu link");
-      } else if (erro.response.status === 401){
-        setWait(false);
-        return alert("Houve um erro ao publicar seu link");
-      }
-      alert("Houve um erro ao publicar seu link");
+      return window.location.reload(false);
     });
 
     const promiseTags = axios.post(`${process.env.REACT_APP_API_URL}/hashtag`, tags);
@@ -56,6 +50,7 @@ export default function WhiteBox(props) {
       alert(erro.message);
     });
 
+  }
   }
   return (
     <Main data-test="publish-box">

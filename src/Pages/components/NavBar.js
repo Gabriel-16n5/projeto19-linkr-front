@@ -26,7 +26,7 @@ export default function NavBar() {
   return (
     <Main>
       <h1>linkr</h1>
-      <Search />
+      <Search data-test="search"/>
       <Seta onClick={openlogout} >
       {icon===0 ? <BsChevronDown/> : <BsChevronUp/> }
         <img data-test="avatar"
