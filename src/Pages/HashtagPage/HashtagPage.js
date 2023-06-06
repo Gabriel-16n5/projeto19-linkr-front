@@ -59,6 +59,7 @@ export default function UserPage() {
   }
 
   useEffect(() => {
+    console.log(params.hashtag)
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/");
