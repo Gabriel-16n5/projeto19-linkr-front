@@ -6,8 +6,11 @@ import { TimelineContext } from '../../contexts/TimelineContext';
 import { Tooltip } from "react-tooltip";
 import axios from 'axios';
 import { useNavigate } from "react-router";
+import reactStringReplace from 'react-string-replace';
+import { Link } from 'react-router-dom';
 
 export default function BlackBox(props) {
+    console.log(props.tags)
     const navigate = useNavigate();
     const [filled, setFilled] = useState(false)
     // const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
@@ -42,6 +45,7 @@ export default function BlackBox(props) {
 
     useEffect(() => {
         checkLikes();
+
     }, [peopleLikes]);
 
     function checkLikes() {
@@ -198,11 +202,15 @@ export default function BlackBox(props) {
                         onKeyDown={keyPress}
                     />
                 ) : (
-                    <span data-test="description" ref={textRef}>{text}</span>
+                    <span data-test="description" ref={textRef}>
+                            {reactStringReplace(`${text}`, `#amo`, (match, i) => (
+                            <Link to="/hashtag/amo">{match}</Link>))}
+                        </span>
                 )}
                 <UrlContainer onClick={e=> window.open(props.url, "_blank")}>
                     <UrlTextContainer>
                         <h2 >{props.title}</h2>
+                        
                         <p >
                             {props.description}
                         </p>
