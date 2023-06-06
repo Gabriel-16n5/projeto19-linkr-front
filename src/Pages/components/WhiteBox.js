@@ -11,13 +11,21 @@ export default function WhiteBox(props) {
   const userImg = localStorage.getItem("userUrl")
 
   function publishPost(e){
+    const a = data.text.match(/#\w+/g)
+    const sapo = a[0].replace("#","")
     const tags = {
-      tag: data.text.match(/#\w+/g)
+      tag: sapo
     }
-
+    const holder = {
+      url: data.url,
+      text: data.text,
+      tag: tags.tag
+    }
+    console.log(holder)
+    console.log(data)
     e.preventDefault();
     setWait(true)
-    const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,data,{
+    const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,holder,{
       headers: {
         'Authorization': `Bearer ${props.token}`
       },

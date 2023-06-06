@@ -6,6 +6,8 @@ import { TimelineContext } from '../../contexts/TimelineContext';
 import { Tooltip } from "react-tooltip";
 import axios from 'axios';
 import { useNavigate } from "react-router";
+import reactStringReplace from 'react-string-replace';
+import { Link } from 'react-router-dom';
 
 export default function BlackBox(props) {
     const navigate = useNavigate();
@@ -15,6 +17,7 @@ export default function BlackBox(props) {
     const [isEditing, setIsEditing] = useState(false)
     const [includesName, setIncludesName] = useState(false)
     const [text, setText] = useState(props.text)
+    const [tags, setags] = useState(props.tag)
     const textRef = useRef(null);
     const inputRef = useRef(null);
     const username = localStorage.getItem("username");
@@ -22,7 +25,6 @@ export default function BlackBox(props) {
     const token = localStorage.getItem("token");
     let peopleLikes = props.peopleLike
     let peopleNumberLikes = peopleLikes.length
-        
 
     function namePeopleLike() {
         if (peopleLikes.length === 0) {
@@ -40,7 +42,6 @@ export default function BlackBox(props) {
             else return `Você, ${peopleLikes[0].username} e mais ${Number(peopleNumberLikes) - 2}curtiram`
         }
     }
-
     useEffect(() => {
         checkLikes();
     }, [peopleLikes]);
@@ -72,7 +73,6 @@ export default function BlackBox(props) {
                 setIncludesName(true)
                 nameOn = true;
             }
-            console.log(includesName)
         } 
 
         if (peopleNumberLikes === 0 && nameOn === true) {
@@ -118,7 +118,6 @@ export default function BlackBox(props) {
                 })
         }
     }
-
 
     function clickEditing() {
         setIsEditing(!isEditing)
@@ -202,11 +201,15 @@ export default function BlackBox(props) {
                         onKeyDown={keyPress}
                     />
                 ) : (
-                    <span data-test="description" ref={textRef}>{text}</span>
+                    <span data-test="description" ref={textRef}>
+                            {reactStringReplace(`${text}`, `#${tags}`, (match, i) => (
+                            <Link to={`/hashtag/${tags}`}>{match}</Link>))}
+                        </span>
                 )}
                 <UrlContainer onClick={e=> window.open(props.url, "_blank")}>
                     <UrlTextContainer>
                         <h2 >{props.title}</h2>
+                        
                         <p >
                             {props.description}
                         </p>
