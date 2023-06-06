@@ -10,7 +10,6 @@ import reactStringReplace from 'react-string-replace';
 import { Link } from 'react-router-dom';
 
 export default function BlackBox(props) {
-    console.log(props.tags)
     const navigate = useNavigate();
     const [filled, setFilled] = useState(false)
     // const { deleted, setDeleted, open, setOpen } = useContext(TimelineContext);
@@ -18,13 +17,13 @@ export default function BlackBox(props) {
     const [isEditing, setIsEditing] = useState(false)
     const [includesName, setIncludesName] = useState(false)
     const [text, setText] = useState(props.text)
+    const [tags, setags] = useState(props.tag)
     const textRef = useRef(null);
     const inputRef = useRef(null);
     const username = localStorage.getItem("username");
     const token = localStorage.getItem("token");
     let peopleLikes = props.peopleLike
     let peopleNumberLikes = peopleLikes.length
-        
 
     function namePeopleLike() {
         if (peopleLikes.length === 0) {
@@ -42,10 +41,8 @@ export default function BlackBox(props) {
             else return `Você, ${peopleLikes[0].username} e mais ${Number(peopleNumberLikes) - 2}curtiram`
         }
     }
-
     useEffect(() => {
         checkLikes();
-
     }, [peopleLikes]);
 
     function checkLikes() {
@@ -75,7 +72,6 @@ export default function BlackBox(props) {
                 setIncludesName(true)
                 nameOn = true;
             }
-            console.log(includesName)
         } 
 
         if (peopleNumberLikes === 0 && nameOn === true) {
@@ -121,7 +117,6 @@ export default function BlackBox(props) {
                 })
         }
     }
-
 
     function clickEditing() {
         setIsEditing(!isEditing)
@@ -203,8 +198,8 @@ export default function BlackBox(props) {
                     />
                 ) : (
                     <span data-test="description" ref={textRef}>
-                            {reactStringReplace(`${text}`, `#amo`, (match, i) => (
-                            <Link to="/hashtag/amo">{match}</Link>))}
+                            {reactStringReplace(`${text}`, `#${tags}`, (match, i) => (
+                            <Link to={`/hashtag/${tags}`}>{match}</Link>))}
                         </span>
                 )}
                 <UrlContainer onClick={e=> window.open(props.url, "_blank")}>
