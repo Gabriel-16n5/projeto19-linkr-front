@@ -17,7 +17,7 @@ export default function Search() {
       alert(erro.message);
     });
   }
-  
+
   return (
     <SearchContainer>
       <DebounceInput type="text" placeholder="Search for people" minLength={3}
@@ -25,7 +25,7 @@ export default function Search() {
       <span>
         <AiOutlineSearch />
       </span>
-      {data === 0 || !data[0] ? <></> : <MenuDown>{data.map(a=> <div onClick={b=> navigate(`/user/${a.id}`)}>
+      {data === 0 || !data[0] ? <></> : <MenuDown>{data.map((a, i)=> <div key={i} onClick={b=> navigate(`/user/${a.id}`)}>
         <img src={a.pictureUrl}/>
         <p>{a.username}</p>
         </div>)} </MenuDown> }

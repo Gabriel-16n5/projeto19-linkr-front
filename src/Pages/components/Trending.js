@@ -8,7 +8,7 @@ export default function Trending(props) {
       <h1>trending</h1>
       <section>
         {props.tags.map((a, i) => (
-          <p data-test="hashtag" key={i}> {a.text}</p>
+          <p data-test="hashtag" key={i}> {`#${a.text}`}</p>
         ))}
       </section>
     </Main>
