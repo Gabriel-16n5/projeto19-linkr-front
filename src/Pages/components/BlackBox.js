@@ -230,7 +230,7 @@ export default function BlackBox(props) {
                     <IconsContainer>
 
                     { (name===username) ? <><Hover><BsPencilSquare data-test="edit-btn" size={20} onClick={clickEditing} /></Hover>
-                        <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={deletePost} /></Hover></> :
+                        <Hover ><BsFillTrashFill data-test="delete-btn" size={20} onClick={b=> deletePost(props.postId)} /></Hover></> :
                         <></>}
                         
                     </IconsContainer>

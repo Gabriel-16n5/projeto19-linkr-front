@@ -20,13 +20,13 @@ export default function Search() {
 
   return (
     <SearchContainer>
-      <DebounceInput type="text" placeholder="Search for people" minLength={3}
+      <DebounceInput data-test="search" type="text" placeholder="Search for people" minLength={3}
           debounceTimeout={300} onChange={e=> search(e.target.value)}/>
       <span>
         <AiOutlineSearch />
       </span>
-      {data === 0 || !data[0] ? <></> : <MenuDown>{data.map((a, i)=> <div key={i} onClick={b=> navigate(`/user/${a.id}`)}>
-        <img src={a.pictureUrl}/>
+      {data === 0 || !data[0] ? <></> : <MenuDown>{data.map((a, i)=> <div data-test="user-search" key={i} onClick={b=> navigate(`/user/${a.id}`)}>
+        <img src={a.pictureUrl} alt="user"/>
         <p>{a.username}</p>
         </div>)} </MenuDown> }
       
