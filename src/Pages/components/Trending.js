@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { Link } from "react-router-dom";
 export default function Trending(props) {
   
 
@@ -7,8 +7,9 @@ export default function Trending(props) {
     <Main data-test="trending">
       <h1>trending</h1>
       <section>
+        
         {props.tags.map((a, i) => (
-          <p data-test="hashtag" key={i}> {`#${a.text}`}</p>
+          <>{a.text !== "" ? <Link to={`/hashtag/${a.text}`}><p data-test="hashtag" key={i}> {`#${a.text}`}</p></Link> : ""}</>
         ))}
       </section>
     </Main>
@@ -16,7 +17,6 @@ export default function Trending(props) {
 }
 
 const Main = styled.div`
-  margin-top: 40px;
   height: 406px;
   width: 100%;
   background-color: #171717;
@@ -37,13 +37,14 @@ const Main = styled.div`
     height: 1px;
     background-color: #484848;
     margin-top: 12px;
-    margin-bottom: 220px;
+    margin-bottom: 22px;
   }
   p {
     font-family: "Lato", sans-serif;
     font-size: 19px;
     font-weight: 700;
     margin-left: 16px;
+    margin-top: 12px;
     margin-bottom: 12px;
   }
 `;
