@@ -179,6 +179,7 @@ export default function BlackBox(props) {
 
 
     function deletePost(id) {
+        console.log(id)
       setDeleted(true);
       props.setInfo(id)
       

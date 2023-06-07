@@ -24,7 +24,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [data, setData] = useState(0);
-const [info,setInfo] = useState();
+  const [info,setInfo] = useState();
   const [hashtags, setHashtags] = useState([]);
 
   function noDelete() {
