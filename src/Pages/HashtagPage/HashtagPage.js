@@ -58,7 +58,6 @@ export default function UserPage() {
         alert(erro.message);
       });
   }, [navigate]);
-  console.log(data)
   return (
     <>
       {deleted ? (
