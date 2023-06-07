@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {BiRepost} from 'react-icons/bi'
 import { IoIosHeartEmpty, IoIosHeart, } from 'react-icons/io';
 import { BsPencilSquare, BsFillTrashFill, BsSend } from 'react-icons/bs';
 import {FaRegComment} from 'react-icons/fa'
@@ -219,6 +220,10 @@ export default function BlackBox(props) {
         setCommentShow(!commentShow)
     }
 
+    function repost(){
+        alert("Repost this post")
+    }
+
 
     return (
         <Main>
@@ -241,10 +246,15 @@ export default function BlackBox(props) {
                 <ReactToolTip id="my-tooltip" data-test="tooltip"/>
                 <p data-test="counter"> {`${peopleNumberLikes} likes`}</p>
 
-                <CommentIcon onClick={showComments} data-test="comment-btn">
+                <CommentFollowIcon onClick={showComments} data-test="comment-btn">
                     <FaRegComment size={20}/>
-                </CommentIcon>
+                </CommentFollowIcon>
                 <p data-test="comment-counter">  {`3 comments`}</p>
+                
+                <CommentFollowIcon data-test="repost-btn" onClick={repost}>
+                    <BiRepost size={20}/>
+                </CommentFollowIcon>
+                <p data-test="repost-counter">  {`0 reposts`}</p>
                 
             </ImageLikesContainer>
             <TextContainer>
@@ -486,7 +496,7 @@ const PostContainer = styled.div`
 const ImageLikesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 70%;
+  height: 85%;
   width: 14%;
   justify-content: space-between;
   align-items: center;
@@ -576,7 +586,7 @@ const HeartIcon = styled.div`
   cursor: pointer;
 `;
 
-const CommentIcon = styled.div`
+const CommentFollowIcon = styled.div`
     margin-top: 13px;
     color: white;
     cursor: pointer;
