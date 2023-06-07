@@ -17,6 +17,7 @@ export default function BlackBox(props) {
     const [isEditing, setIsEditing] = useState(false)
     const [includesName, setIncludesName] = useState(false)
     const [loadingLike, setLoadingLike] = useState(false)
+    const [disableEdit, setDisableEdit] = useState(false)
     const [text, setText] = useState(props.text)
     const [tags, setags] = useState(props.tag)
     const textRef = useRef(null);
@@ -144,6 +145,7 @@ export default function BlackBox(props) {
                     alert("Erro trying to unlike this post")
                 })
         }
+        setLoadingLike(false)
     }
     window.location.reload(false)
     }
@@ -152,8 +154,13 @@ export default function BlackBox(props) {
         setIsEditing(!isEditing)
     }
 
-    function keyPress(e) {
+    function keyPress(e) {            
         if (e.key === 'Enter') {
+
+            if(!disableEdit) {
+
+                setDisableEdit(true)
+
             setIsEditing(false)
             const newText = inputRef.current.value
             axios.put(`${process.env.REACT_APP_API_URL}/timeline/${props.postId}`, { newText }, {
@@ -165,11 +172,14 @@ export default function BlackBox(props) {
                 .then(response => {
                     setText(newText)
                     console.log(response.message)
+                    setDisableEdit(false)
                 })
                 .catch(error => {
                     console.log(error.message)
                     alert("It wasn't able to save new change")
+                    setDisableEdit(false)
                 });
+            }
 
         } else if (e.key === 'Escape') {
             setIsEditing(false)
@@ -231,6 +241,7 @@ export default function BlackBox(props) {
                         type="text"
                         defaultValue={text}
                         onKeyDown={keyPress}
+                        disabled={disableEdit}
                     />
                 ) : (
                     <span data-test="description" ref={textRef}>

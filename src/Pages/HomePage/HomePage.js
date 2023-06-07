@@ -9,6 +9,8 @@ import {
   NoButton,
   YesButton,
   ButtonsContainer,
+  TitleContainer,
+  FollowButton,
 } from "./StyledHomePage";
 import WhiteBox from "../components/WhiteBox";
 import BlackBox from "../components/BlackBox";
@@ -34,7 +36,6 @@ export default function HomePage() {
   function yesDelete() {
       const promise = axios.delete(`${process.env.REACT_APP_API_URL}/timeline/${info}`,{ headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` }});
         promise.then((ok) => {
-          return console.log(ok.data)
         });
         promise.catch((erro) => {
          if(erro.response.status === 404){
@@ -95,7 +96,10 @@ export default function HomePage() {
       <Main>
         <NavBar />
         <TimeLine>
-          <h1>Timeline</h1>
+          <TitleContainer>
+            <h1>Timeline</h1>
+            <FollowButton>Follow</FollowButton>
+          </TitleContainer>
           <WhiteBox token={localStorage.getItem("token")} />
           {data===0 ? <h4>Loading posts...</h4> : data!==0 ? data.map((a, i)=> <BlackBox key={i} tag={a.tag} setInfo={setInfo} userId={a.userId} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>) : ""/*<h4>There are no posts yet</h4>*/}
           {!data && data!==0 ? <h4 data-test="message" >There are no posts yet</h4> : ""}
