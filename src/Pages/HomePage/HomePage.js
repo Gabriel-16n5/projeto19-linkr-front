@@ -11,7 +11,12 @@ import {
   ButtonsContainer,
   TitleContainer,
   FollowButton,
+  UnfollowButton,
+  FollowUnfollowButton,
+  LoadButton,
+  Loader,
 } from "./StyledHomePage";
+import {TbLoader3} from 'react-icons/tb'
 import WhiteBox from "../components/WhiteBox";
 import BlackBox from "../components/BlackBox";
 import Trending from "../components/Trending";
@@ -28,6 +33,7 @@ export default function HomePage() {
   const [data, setData] = useState(0);
   const [info,setInfo] = useState();
   const [hashtags, setHashtags] = useState([]);
+  const [follow, setFollow] = useState(true)
 
   function noDelete() {
     setDeleted(false);
@@ -49,6 +55,14 @@ export default function HomePage() {
     setDeleted(false);
     setLoading(true);
 
+  }
+
+  function clickButton() {
+    setFollow(!follow)
+  }
+
+  function reloadPosts() {
+    alert("Add reload page")
   }
 
   useEffect(() => {
@@ -100,11 +114,22 @@ export default function HomePage() {
         <TimeLine>
           <TitleContainer>
             <h1>Timeline</h1>
-            <FollowButton>Follow</FollowButton>
+            <FollowUnfollowButton onClick={clickButton} data-test="follow-btn">
+              {follow ? 
+              <FollowButton>Follow</FollowButton> :
+              <UnfollowButton>Unfollow</UnfollowButton>
+              }
+            </FollowUnfollowButton>
           </TitleContainer>
           
           <WhiteBox token={localStorage.getItem("token")} />
-          {data===0 ? <h4>Loading posts...</h4> : !data ? <h4 data-test="message">There are no posts yet</h4> : data.map((a, i)=> <BlackBox key={i} tag={a.tag} setInfo={setInfo} userId={a.userId} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
+          <LoadButton data-test="load-btn" onClick={reloadPosts}>
+            <p>12 new posts, load more!</p>
+            <Loader>
+              <TbLoader3 size={20}/>
+            </Loader>
+          </LoadButton>
+          {data===0 ? <h4 data-test="message">You don't follow anyone yet. Search for new friends!</h4> : !data ? <h4 data-test="message">There are no posts yet</h4> : data.map((a, i)=> <BlackBox key={i} tag={a.tag} setInfo={setInfo} userId={a.userId} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
           
         </TimeLine>
         <MenuLeft>
