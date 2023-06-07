@@ -16,6 +16,7 @@ export default function Trending(props) {
 }
 
 const Main = styled.div`
+  margin-top: 40px;
   height: 406px;
   width: 100%;
   background-color: #171717;
@@ -36,7 +37,7 @@ const Main = styled.div`
     height: 1px;
     background-color: #484848;
     margin-top: 12px;
-    margin-bottom: 22px;
+    margin-bottom: 220px;
   }
   p {
     font-family: "Lato", sans-serif;

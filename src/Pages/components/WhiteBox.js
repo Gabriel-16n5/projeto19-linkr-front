@@ -48,7 +48,6 @@ export default function WhiteBox(props) {
 
     const promiseTags = axios.post(`${process.env.REACT_APP_API_URL}/hashtag`, tags);
     promiseTags.then((res) => {
-      console.log(tags)
     });
     promiseTags.catch((erro) => {
       alert(erro.message);

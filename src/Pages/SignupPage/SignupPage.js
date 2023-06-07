@@ -29,7 +29,6 @@ export default function SignupPage() {
       password: `${password}`,
       pictureUrl: `${url}`,
     };
-    console.log(body);
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/signup`, body);
     promise.then((ok) => navigate("/"));
     promise.catch((erro) => {

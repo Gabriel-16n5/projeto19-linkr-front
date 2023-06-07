@@ -60,7 +60,6 @@ export const TimeLine = styled.div`
     font-size: 43px;
     color: #ffffff;
     font-weight: 700;
-    margin-bottom: 43px;
     @media (max-width: 600px) {
       padding-left: 25px;
     }
@@ -136,3 +135,25 @@ export const YesButton = styled.button`
   color: #ffffff;
   border: none;
 `;
+
+export const TitleContainer = styled.div`
+  width: 156%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`
+
+export const FollowButton = styled.button`
+  width: 112px;
+  height: 31px;
+  background: #1877F2;
+  border-radius: 5px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  color: white;
+`
