@@ -38,12 +38,12 @@ export default function HomePage() {
   function noDelete() {
     setDeleted(false);
   }
-  console.log(info)
   function yesDelete() {
     
       const promise = axios.delete(`${process.env.REACT_APP_API_URL}/timeline/${info}`,{ headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` }});
         promise.then((ok) => {
-          alert("post deletado")
+          console.log("post deletado")
+          window.location.reload(false)
         });
         promise.catch((erro) => {
          if(erro.response.status === 404){
@@ -123,6 +123,7 @@ export default function HomePage() {
           </TitleContainer>
           
           <WhiteBox token={localStorage.getItem("token")} />
+
           <LoadButton data-test="load-btn" onClick={reloadPosts}>
             <p>12 new posts, load more!</p>
             <Loader>

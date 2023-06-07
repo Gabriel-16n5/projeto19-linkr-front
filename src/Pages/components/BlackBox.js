@@ -238,11 +238,10 @@ export default function BlackBox(props) {
                     data-tooltip-id="my-tooltip"
                     data-tooltip-content={namePeopleLike()}
                     data-tooltip-place="bottom"
-                    data-test="like-btn"
                     onClick={heartClick}
                     disabled={loadingLike}
                     >
-                    {filled ? <IoIosHeart size={24} /> : <IoIosHeartEmpty size={24} />}
+                    {filled ? <IoIosHeart data-test="like-btn" size={24} /> : <IoIosHeartEmpty data-test="like-btn" size={24} />}
                 </HeartIcon>
                 <ReactToolTip id="my-tooltip" data-test="tooltip"/>
                 <p data-test="counter"> {`${peopleNumberLikes} likes`}</p>
