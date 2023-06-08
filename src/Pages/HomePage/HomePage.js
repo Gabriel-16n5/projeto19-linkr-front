@@ -130,7 +130,6 @@ export default function HomePage() {
               <YesButton data-test="confirm" onClick={yesDelete}>Yes, delete it</YesButton>
             </ButtonsContainer>
           </DeletedContainer>
-
           <BackgroundOpacity />
         </>
       ) : (
