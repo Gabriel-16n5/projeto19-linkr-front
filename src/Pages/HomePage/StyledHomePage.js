@@ -123,3 +123,18 @@ export const FollowButton = styled.button`
   border: none;
   color: white;
 `
+export const LoadMore = styled.div`
+background-color:#1877F2;
+width:100%;
+height:61px;
+margin-bottom:17px;
+border-radius:16px;
+color:#FFFFFF;
+font-family: 'Lato';
+display:flex;
+align-items:center;
+justify-content:center;
+p{
+  margin-right:10px;
+}
+`

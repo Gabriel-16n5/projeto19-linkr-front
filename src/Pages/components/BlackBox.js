@@ -225,7 +225,7 @@ export default function BlackBox(props) {
             </ImageLikesContainer>
             <TextContainer>
                 <TextTopContainer>
-                    
+                    {console.log(props.userId)}
                     <p onClick={e=> !props.userId ? <></>:navigate(`/user/${props.userId}`)} data-test="username">{props.name}</p>
                     <IconsContainer>
 
