@@ -120,7 +120,6 @@ export default function BlackBox(props) {
                 }
             })
                 .then(response => {
-                    alert("Post liked")
                     setLoadingLike(false)
                 })
                 .catch(error => {
@@ -136,7 +135,6 @@ export default function BlackBox(props) {
                 }
             })
                 .then(response => {
-                    alert("Post liked")
                     setLoadingLike(false)
                 })
                 .catch(error => {
@@ -150,7 +148,6 @@ export default function BlackBox(props) {
                 }
             })
                 .then(response => {
-                    alert("Liked deleted")
                     setLoadingLike(false)
                 })
                 .catch(error => {
