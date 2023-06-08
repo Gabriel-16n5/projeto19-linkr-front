@@ -138,7 +138,7 @@ justify-content:center;
 p{
   margin-right:10px;
 }
-
+`
 
 export const UnfollowButton = styled.button`
   width: 112px;
