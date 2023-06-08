@@ -83,7 +83,7 @@ export default function UserPage() {
             <h1 data-test="hashtag-title">{!data[0] || data===0 ? <>Looking for hashtags</> : <># {data[0].hashtagname}</>}</h1>
             <FollowButton>Follow</FollowButton>
           </TitleContainer>
-          {data===0 ? <h4>Loading posts...</h4> : !data ? <></>  : data.map((a, i)=> <BlackBox key={i} tag={a.tag} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} userId={a.userId} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
+          {data===0 ? <h4>Loading posts...</h4> : !data ? <></>  : data.map((a, i)=> <BlackBox key={i}  tag={a.tag} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} userId={a.userId}  title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
           {!data[0] && data!==0 ? <h4 data-test="message" >There are no posts yet</h4> : ""}
         </TimeLine>
         <MenuLeft>

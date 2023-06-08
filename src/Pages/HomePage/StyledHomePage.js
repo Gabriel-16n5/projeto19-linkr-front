@@ -124,6 +124,22 @@ export const FollowButton = styled.button`
   color: white;
 `
 
+export const LoadMore = styled.div`
+background-color:#1877F2;
+width:100%;
+height:61px;
+margin-bottom:17px;
+border-radius:16px;
+color:#FFFFFF;
+font-family: 'Lato';
+display:flex;
+align-items:center;
+justify-content:center;
+p{
+  margin-right:10px;
+}
+`
+
 export const UnfollowButton = styled.button`
   width: 112px;
   height: 31px;
@@ -156,4 +172,5 @@ export const LoadButton = styled.button`
   position: absolute;
   right: 35%;
   top: 34%;
+
 `

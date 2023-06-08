@@ -11,6 +11,7 @@ import {
   ButtonsContainer,
   TitleContainer,
   FollowButton,
+  LoadMore,
   UnfollowButton,
   FollowUnfollowButton,
   LoadButton,
@@ -23,6 +24,8 @@ import Trending from "../components/Trending";
 import { TimelineContext } from "../../contexts/TimelineContext";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import styled from "styled-components";
+import {TfiReload} from "react-icons/tfi"
 //import Search from "../components/Search";
 
 export default function HomePage() {
@@ -33,7 +36,10 @@ export default function HomePage() {
   const [data, setData] = useState(0);
   const [info,setInfo] = useState();
   const [hashtags, setHashtags] = useState([]);
+  const [posts,setPosts] = useState();
+  const [allPosts,setAllPosts] = useState();
   const [follow, setFollow] = useState(true)
+
 
   function noDelete() {
     setDeleted(false);
@@ -56,6 +62,16 @@ export default function HomePage() {
     setLoading(true);
 
   }
+  function searchNewPosts(){
+    const promises = axios.get(`${process.env.REACT_APP_API_URL}/newPosts`);
+    promises.then((res) => {
+      setAllPosts(res.data)
+    });
+    promises.catch((erro) => {
+      alert(erro.message);
+    });
+  }
+  //setInterval(searchNewPosts, 15000);
 
   function clickButton() {
     setFollow(!follow)
@@ -84,6 +100,14 @@ export default function HomePage() {
         alert("Houve um erro ao publicar seu link");
       });
     }
+    const promises = axios.get(`${process.env.REACT_APP_API_URL}/newPosts`);
+    promises.then((res) => {
+      setPosts(res.data)
+      setAllPosts(res.data)
+    });
+    promises.catch((erro) => {
+      alert(erro.message);
+    });
     const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag`);
       promise.then((res) => {
         setHashtags(res.data);
@@ -92,6 +116,9 @@ export default function HomePage() {
         alert(erro.message);
       });
   }, [navigate]);
+  function loadMore(){
+    alert("loadMore")
+  }
   return (
     <>
       {deleted ? (
@@ -123,14 +150,16 @@ export default function HomePage() {
           </TitleContainer>
           
           <WhiteBox token={localStorage.getItem("token")} />
-
-          <LoadButton data-test="load-btn" onClick={reloadPosts}>
+          {allPosts > posts ? <LoadMore data-test="load-btn" onClick={loadMore}>
             <p>12 new posts, load more!</p>
-            <Loader>
-              <TbLoader3 size={20}/>
-            </Loader>
-          </LoadButton>
-          {data===0 ? <h4 data-test="message">You don't follow anyone yet. Search for new friends!</h4> : !data ? <h4 data-test="message">There are no posts yet</h4> : data.map((a, i)=> <BlackBox key={i} tag={a.tag} setInfo={setInfo} userId={a.userId} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
+            <TfiReload/>
+          </LoadMore> : <></>}
+          
+          {data===0 ? <h4>Loading posts...</h4> : !data ? <h4 data-test="message">There are no posts yet</h4> : data.map((a, i)=> <BlackBox data-test="post" key={i} tag={a.tag} setInfo={setInfo} userId={a.userId} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
+
+
+          
+
           
         </TimeLine>
         <MenuLeft>
@@ -140,3 +169,4 @@ export default function HomePage() {
     </>
   );
 }
+
