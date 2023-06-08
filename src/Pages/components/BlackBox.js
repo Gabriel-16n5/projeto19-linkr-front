@@ -233,7 +233,7 @@ export default function BlackBox(props) {
                     src={props.pictureUrl}
                     alt="imagem perfil"
                 />
-                <HeartIcon
+                <HeartIcon data-test="like-btn"
                     filled={filled}
                     data-tooltip-id="my-tooltip"
                     data-tooltip-content={namePeopleLike()}
@@ -241,7 +241,7 @@ export default function BlackBox(props) {
                     onClick={heartClick}
                     disabled={loadingLike}
                     >
-                    {filled ? <IoIosHeart data-test="like-btn" size={24} /> : <IoIosHeartEmpty data-test="like-btn" size={24} />}
+                    {filled ? <IoIosHeart size={24} /> : <IoIosHeartEmpty size={24} />}
                 </HeartIcon>
                 <ReactToolTip id="my-tooltip" data-test="tooltip"/>
                 <p data-test="counter"> {`${peopleNumberLikes} likes`}</p>
@@ -581,9 +581,12 @@ const UrlTextContainer = styled.div`
   }
 `;
 
-const HeartIcon = styled.div`
+const HeartIcon = styled.button`
   color: ${ props  => (props.filled ? "red" : "white")};
   cursor: pointer;
+  background-color:#171717;
+  outline: none;
+  border: none;
 `;
 
 const CommentFollowIcon = styled.div`
