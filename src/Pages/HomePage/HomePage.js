@@ -97,7 +97,7 @@ export default function HomePage() {
         
       });
       promise.catch((erro) => {
-        alert("Houve um erro ao publicar seu link");
+        alert("There was an error publishing your link");
       });
     }
     const promises = axios.get(`${process.env.REACT_APP_API_URL}/newPosts`);
