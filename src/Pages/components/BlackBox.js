@@ -1,6 +1,8 @@
 import styled from 'styled-components';
+import {BiRepost} from 'react-icons/bi'
 import { IoIosHeartEmpty, IoIosHeart, } from 'react-icons/io';
-import { BsPencilSquare, BsFillTrashFill } from 'react-icons/bs';
+import { BsPencilSquare, BsFillTrashFill, BsSend } from 'react-icons/bs';
+import {FaRegComment} from 'react-icons/fa'
 import { useContext, useRef, useState, useEffect } from 'react';
 import { TimelineContext } from '../../contexts/TimelineContext';
 import { Tooltip } from "react-tooltip";
@@ -25,8 +27,11 @@ export default function BlackBox(props) {
     const username = localStorage.getItem("username");
     const name = props.name
     const token = localStorage.getItem("token");
+    const userUrl = localStorage.getItem("userUrl");
     let peopleLikes = props.peopleLike
     let peopleNumberLikes = peopleLikes.length
+    const [comment, setCommment] = useState('');
+    const [commentShow, setCommentShow] = useState(false)
 
     function namePeopleLike() {
         let included = false;
@@ -202,8 +207,27 @@ export default function BlackBox(props) {
         }
     }, [isEditing]);
 
+    function commentChange(e){
+        setCommment(e.target.value)
+    }
+
+    function sendComment(e){
+        e.preventDefault()
+        alert(comment)
+    }
+
+    function showComments(){
+        setCommentShow(!commentShow)
+    }
+
+    function repost(){
+        alert("Repost this post")
+    }
+
+
     return (
-        <Main data-test="post">
+        <Main>
+        <PostContainer data-test="post">
             <ImageLikesContainer>
                 <img
                     src={props.pictureUrl}
@@ -214,14 +238,24 @@ export default function BlackBox(props) {
                     data-tooltip-id="my-tooltip"
                     data-tooltip-content={namePeopleLike()}
                     data-tooltip-place="bottom"
-                    data-test="like-btn"
                     onClick={heartClick}
                     disabled={loadingLike}
                     >
-                    {filled ? <IoIosHeart size={24} /> : <IoIosHeartEmpty size={24} />}
+                    {filled ? <IoIosHeart data-test="like-btn" size={24} /> : <IoIosHeartEmpty data-test="like-btn" size={24} />}
                 </HeartIcon>
                 <ReactToolTip id="my-tooltip" data-test="tooltip"/>
                 <p data-test="counter"> {`${peopleNumberLikes} likes`}</p>
+
+                <CommentFollowIcon onClick={showComments} data-test="comment-btn">
+                    <FaRegComment size={20}/>
+                </CommentFollowIcon>
+                <p data-test="comment-counter">  {`3 comments`}</p>
+                
+                <CommentFollowIcon data-test="repost-btn" onClick={repost}>
+                    <BiRepost size={20}/>
+                </CommentFollowIcon>
+                <p data-test="repost-counter">  {`0 reposts`}</p>
+                
             </ImageLikesContainer>
             <TextContainer>
                 <TextTopContainer>
@@ -265,20 +299,189 @@ export default function BlackBox(props) {
                     <img src={props.image} alt="imagem site" />
                 </UrlContainer>
             </TextContainer>
+        </PostContainer>
+
+
+           { commentShow ?    
+        <CommentsBox data-test="comment-box">
+            <CommentContainer data-test="comment">
+                <img src={userUrl}></img>
+                <TextComment>
+                    <TextCommentTop>
+                        <Author>{username}</Author>
+                        <Following>• post's author</Following>
+                    </TextCommentTop>
+                    <Comment>
+                        oloko meu
+                    </Comment>
+                </TextComment>
+            </CommentContainer>
+            <section/>
+
+            <CommentContainer data-test="comment">
+                <img src={userUrl}></img>
+                <TextComment>
+                    <TextCommentTop>
+                        <Author>{username}</Author>
+                        <Following>• post's author</Following>
+                    </TextCommentTop>
+                    <Comment>
+                        curti esse post maluco
+                    </Comment>
+                </TextComment>
+            </CommentContainer>
+            <section/>
+
+            <WriteComment>
+            <img src={userUrl}/>
+            <InputComment
+                 type="text"
+                 value={comment}
+                 onChange={commentChange}
+                 placeholder="write a comment"
+                 data-test="comment-input"
+            />
+            <SendIcon type="button" onClick={sendComment} data-test="comment-submit">
+                <BsSend />
+            </SendIcon>
+            </WriteComment>
+
+        </CommentsBox> : <></>
+        }  
         </Main>
     );
 }
 
 const Main = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 29px;
+`
+
+const CommentsBox = styled.div`
+    height: 100%;
+    background-color: #1E1E1E;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    section {
+        border: 1px solid #353535;
+        width: 100%;
+    }
+`
+
+const CommentContainer = styled.div`
+    height: 75px;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    img {
+    width: 39px;
+    height: 39px;
+    border-radius: 26px;
+    }
+`
+
+const TextComment = styled.div`
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+`
+
+const TextCommentTop = styled.div`
+    display: flex;
+    flex-direction: row;
+`
+
+const Comment = styled.div`
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ACACAC;
+`
+
+const Author = styled.div`
+    font-family: "Lato", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    color: #F3F3F3;
+`
+
+const Following = styled.div`
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    margin-left: 5px;
+    color: #565656;
+`
+
+const WriteComment = styled.div`
+    height: 75px;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    position: relative;
+
+    img {
+        width: 39px;
+        height: 39px;
+        border-radius: 26px;
+        }
+
+`
+
+const InputComment = styled.input`
+    background: #252525;
+    border-radius: 8px;
+    height: 39px;
+    width: 90%;
+    padding: 10px;
+    border: none;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ACACAC;
+
+
+    ::placeholder {
+        font-family: 'Lato';
+        font-style: italic;
+        font-weight: 400;
+        font-size: 14px;
+    }
+`
+
+const SendIcon = styled.div`
+    color: #F3F3F3;
+    position: absolute;
+    top: 40%;
+    right: 6%;
+    z-index: 3;
+`
+
+const PostContainer = styled.div`
+  z-index: 2;
   height: 276px;
   width: 100%;
   background-color: #171717;
   border-radius: 16px;
-  margin-bottom: 29px;
   padding: 17px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-bottom: -13px;
   @media (max-width: 600px) {
     border-radius: 0;
   }
@@ -293,9 +496,9 @@ const Main = styled.div`
 const ImageLikesContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 50%;
+  height: 85%;
   width: 14%;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   P {
     font-family: "Lato", sans-serif;
@@ -382,6 +585,12 @@ const HeartIcon = styled.div`
   color: ${ props  => (props.filled ? "red" : "white")};
   cursor: pointer;
 `;
+
+const CommentFollowIcon = styled.div`
+    margin-top: 13px;
+    color: white;
+    cursor: pointer;
+`
 
 const IconsContainer = styled.div`
   color: #ffffff;

@@ -123,6 +123,7 @@ export const FollowButton = styled.button`
   border: none;
   color: white;
 `
+
 export const LoadMore = styled.div`
 background-color:#1877F2;
 width:100%;
@@ -137,4 +138,39 @@ justify-content:center;
 p{
   margin-right:10px;
 }
+
+
+export const UnfollowButton = styled.button`
+  width: 112px;
+  height: 31px;
+  background: #FFFFFF;
+  border-radius: 5px;
+  font-family: 'Lato';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  color: #1877F2;
+`
+
+export const FollowUnfollowButton = styled.div`
+`
+
+export const LoadButton = styled.button`
+  width: 100%;
+  height: 60px;
+  margin-bottom: 20px;
+  background: #1877F2;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  color: #FFFFFF;
+  position: relative;
+  border: none;
+`
+
+  export const Loader = styled.div`
+  position: absolute;
+  right: 35%;
+  top: 34%;
+
 `

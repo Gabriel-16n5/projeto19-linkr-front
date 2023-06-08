@@ -12,7 +12,12 @@ import {
   TitleContainer,
   FollowButton,
   LoadMore,
+  UnfollowButton,
+  FollowUnfollowButton,
+  LoadButton,
+  Loader,
 } from "./StyledHomePage";
+import {TbLoader3} from 'react-icons/tb'
 import WhiteBox from "../components/WhiteBox";
 import BlackBox from "../components/BlackBox";
 import Trending from "../components/Trending";
@@ -33,16 +38,18 @@ export default function HomePage() {
   const [hashtags, setHashtags] = useState([]);
   const [posts,setPosts] = useState();
   const [allPosts,setAllPosts] = useState();
+  const [follow, setFollow] = useState(true)
+
 
   function noDelete() {
     setDeleted(false);
   }
-  console.log(info)
   function yesDelete() {
     
       const promise = axios.delete(`${process.env.REACT_APP_API_URL}/timeline/${info}`,{ headers: { 'Authorization': `Bearer ${localStorage.getItem("token")}` }});
         promise.then((ok) => {
-          alert("post deletado")
+          console.log("post deletado")
+          window.location.reload(false)
         });
         promise.catch((erro) => {
          if(erro.response.status === 404){
@@ -65,6 +72,14 @@ export default function HomePage() {
     });
   }
   //setInterval(searchNewPosts, 15000);
+
+  function clickButton() {
+    setFollow(!follow)
+  }
+
+  function reloadPosts() {
+    alert("Add reload page")
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -126,16 +141,25 @@ export default function HomePage() {
         <TimeLine>
           <TitleContainer>
             <h1>Timeline</h1>
-            <FollowButton>Follow</FollowButton>
+            <FollowUnfollowButton onClick={clickButton} data-test="follow-btn">
+              {follow ? 
+              <FollowButton>Follow</FollowButton> :
+              <UnfollowButton>Unfollow</UnfollowButton>
+              }
+            </FollowUnfollowButton>
           </TitleContainer>
           
           <WhiteBox token={localStorage.getItem("token")} />
-          {allPosts > posts ? <LoadMore onClick={loadMore}>
+          {allPosts > posts ? <LoadMore data-test="load-btn" onClick={loadMore}>
             <p>12 new posts, load more!</p>
             <TfiReload/>
           </LoadMore> : <></>}
           
           {data===0 ? <h4>Loading posts...</h4> : !data ? <h4 data-test="message">There are no posts yet</h4> : data.map((a, i)=> <BlackBox data-test="post" key={i} tag={a.tag} setInfo={setInfo} userId={a.userId} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike}/>)}
+
+
+          
+
           
         </TimeLine>
         <MenuLeft>
