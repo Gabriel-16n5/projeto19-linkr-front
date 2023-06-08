@@ -32,6 +32,7 @@ export default function SigninPage() {
       localStorage.setItem("token", ok.data.token);
       localStorage.setItem("userUrl", ok.data.userUrl);
       localStorage.setItem("username", ok.data.username);
+      localStorage.setItem("idUser", ok.data.idUser);
       navigate("/timeline");
     });
     promise.catch((erro) => {
