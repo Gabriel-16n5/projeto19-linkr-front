@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
 import { useState } from "react";
 import Search from "./Search";
@@ -25,7 +25,7 @@ export default function NavBar() {
   }
   return (
     <Main>
-      <h1>linkr</h1>
+      <Link to="/timeline"><h1>linkr</h1></Link>
       <Search data-test="search"/>
       <Seta onClick={openlogout} >
       {icon===0 ? <BsChevronDown/> : <BsChevronUp/> }

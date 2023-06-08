@@ -29,6 +29,12 @@ export default function WhiteBox(props) {
     }
     e.preventDefault();
     setWait(true)
+    const promiseTags = axios.post(`${process.env.REACT_APP_API_URL}/hashtag`, tags);
+    promiseTags.then((res) => {
+    });
+    promiseTags.catch((erro) => {
+      alert(erro.message);
+    });
     const promise = axios.post(`${process.env.REACT_APP_API_URL}/timeline`,holder,{
       headers: {
         'Authorization': `Bearer ${props.token}`
@@ -45,14 +51,6 @@ export default function WhiteBox(props) {
       setData({url:"",text:""})
       return window.location.reload(false);
     });
-
-    const promiseTags = axios.post(`${process.env.REACT_APP_API_URL}/hashtag`, tags);
-    promiseTags.then((res) => {
-    });
-    promiseTags.catch((erro) => {
-      alert(erro.message);
-    });
-
   }
   }
   return (
