@@ -30,8 +30,9 @@ export default function BlackBox(props) {
     const userUrl = localStorage.getItem("userUrl");
     let peopleLikes = props.peopleLike
     let peopleNumberLikes = peopleLikes.length
-    const [comment, setCommment] = useState('');
+    const [comment, setComment] = useState('');
     const [commentShow, setCommentShow] = useState(false)
+    const [comments, setComments] = useState('');
 
     function namePeopleLike() {
         let included = false;
@@ -59,9 +60,16 @@ export default function BlackBox(props) {
     }
 
     useEffect(() => {
+        const promise = axios.get(`${process.env.REACT_APP_API_URL}/comments/${props.postId}`);
+        promise.then((res) => {
+            setComments(res.data);
+        });
+        promise.catch((erro) => {
+          alert(erro.message);
+        });
         checkLikes();
     }, [peopleLikes]);
-  
+
     setInterval(checkLikes, 1000);
   
     function checkLikes() {
@@ -112,7 +120,6 @@ export default function BlackBox(props) {
                 }
             })
                 .then(response => {
-                    alert("Post liked")
                     setLoadingLike(false)
                 })
                 .catch(error => {
@@ -128,7 +135,6 @@ export default function BlackBox(props) {
                 }
             })
                 .then(response => {
-                    alert("Post liked")
                     setLoadingLike(false)
                 })
                 .catch(error => {
@@ -142,7 +148,6 @@ export default function BlackBox(props) {
                 }
             })
                 .then(response => {
-                    alert("Liked deleted")
                     setLoadingLike(false)
                 })
                 .catch(error => {
@@ -208,15 +213,27 @@ export default function BlackBox(props) {
     }, [isEditing]);
 
     function commentChange(e){
-        setCommment(e.target.value)
+        setComment(e.target.value)
     }
 
     function sendComment(e){
         e.preventDefault()
-        alert(comment)
+        const body = {
+            postId: props.postId,
+            idUser: localStorage.getItem("idUser"),
+            commentary: comment
+        }
+        const promiseComment = axios.post(`${process.env.REACT_APP_API_URL}/comments`, body);
+        promiseComment.then((res) => {
+            console.log(promiseComment)
+        });
+        promiseComment.catch((erro) => {
+          alert(erro.message);
+        });
     }
 
     function showComments(){
+
         setCommentShow(!commentShow)
     }
 
@@ -259,7 +276,6 @@ export default function BlackBox(props) {
             </ImageLikesContainer>
             <TextContainer>
                 <TextTopContainer>
-                    {console.log(props.userId)}
                     <p onClick={e=> !props.userId ? <></>:navigate(`/user/${props.userId}`)} data-test="username">{props.name}</p>
                     <IconsContainer>
 
@@ -304,32 +320,21 @@ export default function BlackBox(props) {
 
            { commentShow ?    
         <CommentsBox data-test="comment-box">
-            <CommentContainer data-test="comment">
-                <img src={userUrl}></img>
-                <TextComment>
-                    <TextCommentTop>
-                        <Author>{username}</Author>
-                        <Following>• post's author</Following>
+            <>{comments.map((c, i) =>
+            <CommentContainer data-test="comment" key={i}> 
+                <img src={c.pictureUrl}></img>
+                <TextComment key={i}>
+                    <TextCommentTop key={i}>
+                        <Author key={i}>{c.username}</Author>
+                        <Following key={i}> • post's author</Following>
                     </TextCommentTop>
                     <Comment>
-                        oloko meu
+                        {c.text}
                     </Comment>
                 </TextComment>
             </CommentContainer>
-            <section/>
-
-            <CommentContainer data-test="comment">
-                <img src={userUrl}></img>
-                <TextComment>
-                    <TextCommentTop>
-                        <Author>{username}</Author>
-                        <Following>• post's author</Following>
-                    </TextCommentTop>
-                    <Comment>
-                        curti esse post maluco
-                    </Comment>
-                </TextComment>
-            </CommentContainer>
+            )}
+            </>
             <section/>
 
             <WriteComment>
