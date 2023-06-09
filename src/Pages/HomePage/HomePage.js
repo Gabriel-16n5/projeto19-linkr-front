@@ -71,7 +71,7 @@ export default function HomePage() {
       alert(erro.message);
     });
   }
-  //setInterval(searchNewPosts, 15000);
+ setInterval(searchNewPosts, 15000);
 
   function clickButton() {
     setFollow(!follow)
@@ -150,7 +150,7 @@ export default function HomePage() {
           
           <WhiteBox token={localStorage.getItem("token")} />
           {allPosts > posts ? <LoadMore data-test="load-btn" onClick={loadMore}>
-            <p>12 new posts, load more!</p>
+            <p>{allPosts-posts} new posts, load more!</p>
             <TfiReload/>
           </LoadMore> : <></>}
           
