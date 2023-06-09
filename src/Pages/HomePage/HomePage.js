@@ -117,7 +117,7 @@ export default function HomePage() {
       });
   }, [navigate]);
   function loadMore(){
-    alert("loadMore")
+    window.location.reload(false)
   }
   return (
     <>
