@@ -147,12 +147,12 @@ export default function HomePage() {
         <TimeLine>
           <TitleContainer>
             <h1>Timeline</h1>
-            <FollowUnfollowButton onClick={clickButton} data-test="follow-btn">
+            {/* <FollowUnfollowButton onClick={clickButton} data-test="follow-btn">
               {follow ?
                 <FollowButton>Follow</FollowButton> :
                 <UnfollowButton>Unfollow</UnfollowButton>
               }
-            </FollowUnfollowButton>
+            </FollowUnfollowButton> */}
           </TitleContainer>
 
           <WhiteBox token={localStorage.getItem("token")} />
