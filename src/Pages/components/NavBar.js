@@ -77,6 +77,7 @@ const Main = styled.div`
   padding-left: 26px;
   padding-right: 10px;
   position: fixed;
+  z-index: 10;
 
   input {
     width: 100%;

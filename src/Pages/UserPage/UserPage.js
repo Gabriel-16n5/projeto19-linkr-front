@@ -18,6 +18,7 @@ import { TimelineContext } from "../../contexts/TimelineContext";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroller";
 export default function UserPage() {
   const { deleted, setDeleted } = useContext(TimelineContext);
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,7 @@ export default function UserPage() {
   const [data, setData] = useState(0);
   const params = useParams()
   const [hashtags, setHashtags] = useState([]);
+  const [numberPosts, setNumberPosts] = useState(10)
 
   function noDelete() {
     setDeleted(false);
@@ -37,19 +39,7 @@ export default function UserPage() {
   }
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/");
-    } else {
-      const promise = axios.get(`${process.env.REACT_APP_API_URL}/user/${params.id}`);
-      promise.then((res) => {
-        setData(res.data);
-
-      });
-      promise.catch((erro) => {
-        alert(erro.message);
-      });
-    }
+    
     const promise = axios.get(`${process.env.REACT_APP_API_URL}/hashtag`);
     promise.then((res) => {
       setHashtags(res.data);
@@ -59,6 +49,22 @@ export default function UserPage() {
     });
   }, [navigate]);
 
+
+  function loadFunc(){
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    } else {
+      const promise = axios.get(`${process.env.REACT_APP_API_URL}/user/${params.id}/${numberPosts}`);
+      promise.then((res) => {
+        setData(res.data);
+        setNumberPosts(parseInt(numberPosts) + 10)
+      });
+      promise.catch((erro) => {
+        alert(erro.message);
+      });
+    }
+  }
 
   return (
     <>
@@ -85,7 +91,14 @@ export default function UserPage() {
             <h1>{!data[0] || data === 0 ? <>Buscando usuario</> : <>{data[0].username} posts</>}</h1>
             <FollowButton>Follow</FollowButton>
           </TitleContainer>
+          < InfiniteScroll
+            pageStart={0}
+            loadMore={loadFunc}
+            hasMore={true || false}
+            loader={< div className="loader" key={0} > Loading ... </div>} >
           {data === 0 ? <h4>Loading posts...</h4> : !data ? <></> : data.map((a, i) => <BlackBox key={i} tag={a.tag} pictureUrl={a.pictureUrl} token={localStorage.getItem("token")} name={a.username} text={a.text} image={a.image} title={a.title} url={a.url} postId={a.postId} description={a.description} peopleLike={a.peopleLike} />)}
+          </InfiniteScroll>
+
           {!data[0] && data !== 0 ? <h4 data-test="message" >There are no posts yet</h4> : ""}
         </TimeLine>
         <MenuLeft>
